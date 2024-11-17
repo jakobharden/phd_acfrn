@@ -1,0 +1,704 @@
+% !BIB TS-program = biblatex
+% !TeX spellcheck = en_US
+%
+%#######################################################################################################################
+% LICENSE
+%
+% "tmpl_presentation.tex" (C) 2024 by Jakob Harden (Graz University of Technology) is licensed under a Creative Commons Attribution 4.0 International license.
+%
+% License deed: https://creativecommons.org/licenses/by/4.0/
+% Author email: jakob.harden@tugraz.at, jakob.harden@student.tugraz.at, office@jakobharden.at
+% Author website: https://jakobharden.at/wordpress/
+% Author ORCID: https://orcid.org/0000-0002-5752-1785
+%
+% This file is part of the PhD thesis of Jakob Harden.
+%#######################################################################################################################
+%
+% Beamer documentation: https://www.beamer.plus/Structuring-Presentation-The-Local-Structure.html
+%
+% preamble
+\documentclass[11pt,aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[ngerman,english]{babel}
+\usepackage{hyphenat}
+\usepackage{lmodern}
+\usepackage{blindtext}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc,fpu}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgflibrary{fpu}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{hyperref}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{biblio.bib}
+
+%
+% text blocks
+\def\PresTitle{Auto-correlation function estimation with reduced impact of noise}
+\def\PresSubTitle{Parameter study on sinusoidal signals in noise}
+\def\PresDate{10/31/2024}
+\def\PresFootInfo{My PhD thesis, research in progress ...}
+\def\PresAuthorFirstname{Jakob}
+\def\PresAuthorLastname{Harden}
+\def\PresAuthor{\PresAuthorFirstname{} \PresAuthorLastname{}}
+\def\PresAuthorAffiliation{Graz University of Technology}
+\def\PresAuthorAffiliationLocation{\PresAuthorAffiliation{}, Graz, Austria}
+\def\PresAuhtorWebsite{jakobharden.at}
+\def\PresAuhtorWebsiteURL{https://jakobharden.at/wordpress/}
+\def\PresAuhtorEmailFirst{jakob.harden@tugraz.at}
+\def\PresAuhtorEmailSecond{jakob.harden@student.tugraz.at}
+\def\PresAuhtorEmailThird{office@jakobharden.at}
+\def\PresAuthorOrcid{0000-0002-5752-1785}
+\def\PresAuthorOrcidURL{https://orcid.org/0000-0002-5752-1785}
+\def\PresAuthorLinkedin{jakobharden}
+\def\PresAuthorLinkedinURL{https://www.linkedin.com/in/jakobharden/}
+\def\PresCopyrightType{ccby} % one of: copyright, ccby, ccysa
+%
+% Beamer theme adaptations
+%   type:        Presentation
+%   series:      Research in progress (RIP)
+%   description: This theme is designed to present preliminary research results.
+\input{adaptthemePresRIP}
+%
+% Load Octave to TeX tool
+\input{oct2texdefs}
+%
+% graphics path
+\graphicspath{{../../octave/results/test_acfrn}}
+%
+% computation result path
+\newcommand{\RPATH}{../../octave/results/test_acfrn}
+%
+%#######################################################################################################################
+\begin{document}
+	% set title page items
+	\author{\PresAuthor{} (\PresAuthorAffiliation{})}
+	\title{\PresTitle{}}
+	\subtitle{\PresSubTitle{}}
+	%\logo{}
+	%\institute{}
+	\date{\PresDate{}}
+	%\subject{}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section*{Abstract}
+	\begin{frame}
+		\frametitle{Abstract}
+		%Die Autokorrelationsfunktion (ACF) nimmt in der Signalanalyse eine bedeutende Rolle ein. Zahlreiche Anwendungen wie zum Beispiel der Wiener-Filter oder die Abschätzung der Signalleistung basieren auf dieser Funktion. In diesen beiden Anwendungen ist es notwendig, den Einfluss des Signalrauschens aus der ACF durch einfache Subtraktion zu eliminieren. Für diese Elimination werden zusätzlich Signaldaten benötigt, die ausschließlich Signalrauschen beinhalten.
+		%Es gibt jedoch Situationen, in denen Signalbereiche, die ausschließlich Signalrauschen enthalten, schwer zu identifizieren sind oder nur eine geringe Datenmenge zur Verfügung steht. In solchen Fällen muss man bei der Abschätzung der Signalleistung oder dem Signal-zu-Rauschen-Verhältnis unter Umständen beträchtliche Genauigkeitsverluste hinnehmen.
+		%Die hier vorgestellte Methode verfolgt das Ziel, den Einfluss des Signalrauschens in der Abschätzung der ACF zu reduzieren, ohne dabei auf zusätzliche Signaldaten für das Rauschen zurückzugreifen. Der Einfluss des Signalrauschens wird dabei durch gezieltes Ersetzen der Funktionswerte der ACF im Bereich der Nullverschiebung durch ein Regressionspolynom zweiter Ordnung bewerkstelligt. Der Einsatz der Methode wird hier vorerst auf gedämpfte, sinusförmige Signale beschränkt.
+		%Die vorläufigen Ergebnisse der nachfolgend präsentierten numerischen Studie zeigen, dass für gängige Anwendungen eine brauchbare Abschätzung der Signalleistung und des Signal-zu-Rauschen-Verhältnisses durchaus möglich ist.
+		\begin{abstract}
+			The autocorrelation function (ACF) plays an important role in signal analysis. Numerous applications, such as the Wiener FIR filter design or signal power estimation, are based on this function. In these two applications, the influence of noise in the ACF is reduced by subtracting the noise power from the zero-lag magnitude of the ACF. Alas, this requires additional signal data that only contains i.i.d. noise.
+			
+			However, there are situations in which signal areas that only contain noise are difficult to identify or only a small amount of data is available. In such cases, considerable losses in accuracy may have to be accepted when estimating the signal power.
+			
+			The method I am about to introduce promises to significantly reduce the influence of signal noise in ACF estimation without the need for additional noise data. The technique involves replacing the ACF magnitudes in the area of the zero-lag with a regression polynomial. In it's initial design, the method is applicable to damped, sinusoidal signals.
+			
+			The numerical study presented below yields promising results. It demonstrates that the method can provide reliable signal power estimates for common applications, making it a practical and valuable tool.
+		\end{abstract}
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section{Introduction}
+	\begin{frame}
+		\frametitle{Introduction}
+		% motivate the topic and/or problem
+		% reason why this work is useful, use cases
+		% briefly describe how to solve the problem
+		\begin{itemize}
+			\item \textcolor{RIPtitlecol}{WHAT}
+			\begin{itemize}
+				\item estimate ACF of damped, sinusoidal signals
+				\item reduce impact of noise in the ACF without using additional noise data (ACF-RN)
+			\end{itemize}
+			\item \textcolor{RIPtitlecol}{WHY}
+			\begin{itemize}
+				\item noise-only signal sequence cannot be clearly identified
+				\item little or no noise-only data available
+			\end{itemize}
+			\item \textcolor{RIPtitlecol}{HOW}
+			\begin{itemize}
+				\item estimate ACF, unbiased estimator
+				\item replace ACF magnitudes around zero-lag with a regression polynomial
+			\end{itemize}
+			\item \textcolor{RIPtitlecol}{USAGE}
+				\begin{itemize}
+					\item signal power estimation
+					\item Wiener FIR filter design
+				\end{itemize}
+			\item \textcolor{RIPtitlecol}{HIGHLIGHT} \textbf{no additional noise data necessary}
+		\end{itemize}
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section{Materials \& Methods}
+	\begin{frame}
+		\frametitle{Materials \& Methods I}
+		% a brief summary of ...
+		%   o  materials
+		%   o  methods
+		%   o  most important assumptions/parameters
+		\begin{columns}
+			\begin{RIPcolleft}
+				\begin{itemize}
+					\setlength\itemsep{0.5em}
+					\item \textcolor{RIPtitlecol}{Materials}
+					\begin{itemize}
+						\setlength\itemsep{0.5em}
+						\item damped, sinusoidal signals in noise (synthetic signals)
+						\item $x[n] = s[n] + \nu[n]$ , $\nu$\ldots i.i.d. noise (GWN)
+						\item $s[n] = A \cdot \sin(n \, \omega) \cdot e^{-DF \frac{n}{N-1}}$
+						\item $\omega = \frac{2 \, \pi \, N_{cy}}{N-1}$
+						\item $N = N_1 \, N_{cy} \; , n = 0,\ldots,N-1$
+						\item $A$\ldots signal amplitude
+						\item $N_1$\ldots signal period
+						\item $N_{cy}$\ldots number of cycles
+						\item $DF$\ldots exponential decay factor
+					\end{itemize}
+				\end{itemize}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Damped, sinusoidal signal in noise}\\
+				\vspace{1em}
+				\includegraphics[width=40mm,trim={15mm 10mm 20mm 20mm}, clip]{sig_N1_1024_Ncy_3_DF_2_SNR_10.png}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Materials \& Methods II}
+		% a brief summary of ...
+		%   o  materials
+		%   o  methods
+		%   o  most important assumptions/parameters
+		\begin{itemize}
+			\setlength\itemsep{0.5em}
+			\item \textcolor{RIPtitlecol}{Methods}
+			\begin{itemize}
+				\setlength\itemsep{0.5em}
+				\item ACF estimation (unbiased)
+				\item $2^{\text{nd}}$ order polynomial regression
+				\item Parameter variation (period, cycles, decay, SNR, noise)
+				\item Monte-Carlo test to estimate the impact of noise
+				\item Method 1: estimate signal power using additional noise data
+				\item \textbf{Method 2: estimate signal power using the ACF with noise reduction}
+				\item Comparison of method 1 and method 2 w.r.t. signal power estimates
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Materials \& Methods III}
+		% a brief summary of ...
+		%   o  materials
+		%   o  methods
+		%   o  most important assumptions/parameters
+		\begin{itemize}
+			\setlength\itemsep{0.5em}
+			\item \textcolor{RIPtitlecol}{Algorithm - ACF with noise reduction (ACF-RN, method 2)}
+			\begin{enumerate}
+				\setlength\itemsep{0.5em}
+				\item Estimate unbiased ACF and determine index of zero-lag
+				\item Find first x axis crossing next to zero-lag in ACF
+				\item Estimate signal period from distance between x axis crossings
+				\item Reduce noise spike at and next zero-lag
+				\item Determine regression interval (symmetric w.r.t. the zero-lag)
+				\item Fit $2^{\text{nd}}$ order polynomial to ACF in regression interval
+				\item Replace ACF magnitudes with polynomial magnitudes, $\Rightarrow R_{xx}^{(rn)}$
+			\end{enumerate}
+		\end{itemize}
+		\vspace*{.5em}
+		\small Perform step 5 to 7 if signal period is greater or equal to 13 samples.\\
+		See also Appendix, algorithm ACF-RN.
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Materials \& Methods IV}
+		% a brief summary of ...
+		%   o  materials
+		%   o  methods
+		%   o  most important assumptions/parameters
+		\begin{itemize}
+			\setlength\itemsep{0.5em}
+			\item \textcolor{RIPtitlecol}{Numerical study - parameter variation}
+			\begin{enumerate}
+				\setlength\itemsep{0.5em}
+				\item Constant: $A = 1 \quad [V]$
+				\item Constant: unbiased ACF estimation
+				\item Variation 1: $N_1 = (64, 512, 1024, 4096) \quad [\text{samples}]$
+				\item Variation 2: $SNR = (5, 10, 15, 20) \quad [dB]$
+				\item Variation 3: $DF = (0, 2, 4) \quad [1]$
+				\item Variation 4: $N_{cy} = (1,\ldots,5) \quad [\#]$, subdivided into 33 steps
+				\item Variation 5: $N_{mc} = 500 \quad [\#]$, Monte-Carlo test turns
+			\end{enumerate}
+		\end{itemize}
+		\vspace*{.5em}
+		%\small Perform step 5 to 7 if signal period is greater or equal to 13 samples.\\
+		%See also Appendix, algorithm ACF-NR.
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section{Preliminary results}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Signal power estimates, Example I}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim= 5mm 0mm 5mm 50mm]{stats1_unbiased_N1_1024_DF_0_SNR_20.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Test signals}\\
+				\begin{itemize}
+					\item Sinusoidal signal
+					\item Low SNR
+				\end{itemize}
+				\textbf{Observations}\\
+				\begin{itemize}
+					\item Ripple in M2 (ACF-RN)
+					\item Error becomes smaller with increasing N
+					\item M2 is converging to M1
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Signal power estimates, Example II}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim= 5mm 0mm 5mm 50mm]{stats1_unbiased_N1_1024_DF_4_SNR_20.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Test signals}\\
+				\begin{itemize}
+					\item Damped sinusoidal signal
+					\item Low SNR
+				\end{itemize}
+				\textbf{Observations}\\
+				\begin{itemize}
+					\item Ripple in M2 is vanishing with increasing exponential decay
+					\item Convergence behavior remains
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Error distribution comparison I}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim= 5mm 0mm 5mm 50mm]{stats2_unbiased_N1_64.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Test signals}\\
+				\begin{itemize}
+					\item Little signal data
+				\end{itemize}
+				\textbf{Observations}\\
+				\begin{itemize}
+					\item M1 and M2 show similar behavior
+					\item Error of M2 is always above error of M1
+					\item Max $\gg$ Q3
+					\item Decay: minor impact
+					\item SNR: significant impact
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Error distribution comparison II}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim= 5mm 0mm 5mm 50mm]{stats2_unbiased_N1_1024.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Test signals}\\
+				\begin{itemize}
+					\item Moderate signal data
+				\end{itemize}
+				\textbf{Observations}\\
+				\begin{itemize}
+					\item Error drops with increasing period N1 and increasing SNR
+					\item Distribution width: \hfill{} M2 $>$ M1
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Error distributions comparison III}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim= 5mm 0mm 5mm 50mm]{stats2_unbiased_N1_4096.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Test signals}\\
+				\begin{itemize}
+					\item Sufficient signal data
+				\end{itemize}
+				\textbf{Observations}\\
+				\begin{itemize}
+					\item Max error drops below 5\% for $SNR \ge 10$ [dB]
+					\item The main part (Q1-Q3) of all distributions is closer to the Min than to the Max
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Performance assessment I}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_MAX_5_10.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Method 2}\\
+				\begin{itemize}
+					\item Performance matrix
+					\item Maximum error
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Method 1}\\
+				\begin{figure}
+					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_MAX_5_10.png}
+				\end{figure}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Performance assessment II}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_Q95_5_10.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Method 2}\\
+				\begin{itemize}
+					\item Performance matrix
+					\item 95\%-percentiles
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Method 1}\\
+				\begin{figure}
+					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_Q95_5_10.png}
+				\end{figure}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Performance assessment III}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=100mm,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_Q3_5_10.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Method 2}\\
+				\begin{itemize}
+					\item Performance matrix
+					\item 75\%-percentiles (Q3)
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Method 1}\\
+				\begin{figure}
+					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_Q3_5_10.png}
+				\end{figure}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Application examples}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_20}
+		\OTsetpfx{oct2tex.nat.ts1_wc040_d70_1.1.20}
+		\begin{itemize}
+			\item \textbf{Ultrasonic pulse transmission tests (UPTM)}
+			\begin{itemize}
+				\item Test series: \OTuse{tsn.v}
+				\item Data set: \OTuse{dscode.v}.oct\cite{dscempaste1}
+				\item Channel: \OTuse{chn.v} (primary wave, compression wave)
+			\end{itemize}
+			\item Reference noise: $\nu[n] = x[n] \; , n = [0,...,999]$ \ldots pre-trigger section, only noise
+			\item $\hat{P}_x = \frac{1}{n_2 - n_1 + 1} \sum\limits_{n=n_1}^{n_2} x[n]^2$ \ldots power of signal in noise, window limits $n_1$, $n_2$
+			\item $\hat{P}_{s,1} = \hat{P}_x - \hat{P}_{\nu}$ \ldots method 1
+			\item $\hat{P}_{s,2} = R_{xx}^{(rn)}[0]$ \ldots method 2
+			\item $SNR_1 = 10 \cdot \log_{10} (\hat{P}_{s,1} / \hat{P}_{\nu}) \quad [dB]$ \ldots method 1
+			\item $SNR_2 = 10 \cdot \log_{10} (\hat{P}_{s,2} / \hat{P}_{\nu}) \quad [dB]$ \ldots method 2
+		\end{itemize}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Application example I}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_20}
+		\OTsetpfx{oct2tex.nat.ts1_wc040_d70_1.1.20}
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_20.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{UPTM signal}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=0}
+					\item Signal ID: \OTuse{sid.v}
+					\item Maturity: $\pgfmathprintnumber{\OTuse{mat.v}} \; [\OTuse{mat.u}]$
+					\item $SNR_1 \approx \pgfmathprintnumber{\OTuse{snr1.v}} \; [\OTuse{snr1.u}]$
+					\item $SNR_2 \approx \pgfmathprintnumber{\OTuse{snr2.v}} \; [\OTuse{snr2.u}]$
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Power estimates}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=2}
+					\item $\hat{P}_{s,1} = \pgfmathprintnumber{\OTuse{ps1.v}} \; [\OTuse{ps1.u}]$
+					\item $\hat{P}_{s,2} = \pgfmathprintnumber{\OTuse{ps2.v}} \; [\OTuse{ps2.u}]$
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Application example II}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_50}
+		\OTsetpfx{oct2tex.nat.ts1_wc040_d70_1.1.50}
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_50.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{UPTM signal}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=0}
+					\item Signal ID: \OTuse{sid.v}
+					\item Maturity: $\pgfmathprintnumber{\OTuse{mat.v}} \; [\OTuse{mat.u}]$
+					\item $SNR_1 \approx \pgfmathprintnumber{\OTuse{snr1.v}} \; [\OTuse{snr1.u}]$
+					\item $SNR_2 \approx \pgfmathprintnumber{\OTuse{snr2.v}} \; [\OTuse{snr2.u}]$
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Power estimates}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=2}
+					\item $\hat{P}_{s,1} = \pgfmathprintnumber{\OTuse{ps1.v}} \; [\OTuse{ps1.u}]$
+					\item $\hat{P}_{s,2} = \pgfmathprintnumber{\OTuse{ps2.v}} \; [\OTuse{ps2.u}]$
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{Preliminary results - Application example III}
+		% place graphs and images in the left column
+		% comment on results in the right column
+		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_288}
+		\OTsetpfx{oct2tex.nat.ts1_wc040_d70_1.1.288}
+		\begin{columns}[t]
+			\begin{RIPcolleft}
+				\begin{figure}
+					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_288.png}
+				\end{figure}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{UPTM signal}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=0}
+					\item Signal ID: \OTuse{sid.v}
+					\item Maturity: $\pgfmathprintnumber{\OTuse{mat.v}} \; [\OTuse{mat.u}]$
+					\item $SNR_1 \approx \pgfmathprintnumber{\OTuse{snr1.v}} \; [\OTuse{snr1.u}]$
+					\item $SNR_2 \approx \pgfmathprintnumber{\OTuse{snr2.v}} \; [\OTuse{snr2.u}]$
+				\end{itemize}
+				\vspace{.5em}
+				\textbf{Power estimates}\\
+				\begin{itemize}
+					\pgfkeys{/pgf/number format/.cd,std,fixed zerofill,precision=2}
+					\item $\hat{P}_{s,1} = \pgfmathprintnumber{\OTuse{ps1.v}} \; [\OTuse{ps1.u}]$
+					\item $\hat{P}_{s,2} = \pgfmathprintnumber{\OTuse{ps2.v}} \; [\OTuse{ps2.u}]$
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section{Conclusions}
+	\begin{frame}
+		\frametitle{Conclusions}
+		% briefly summarize all observations
+		With respect to the chosen parameter ranges, the results allow for the following conclusions:
+		\vspace*{1em}
+		\begin{itemize}
+			\item Power estimation error drops
+			\begin{itemize}
+				\item with increasing amount of signal data
+				\item with increasing signal-to-noise ratio
+			\end{itemize}
+			\item Method 1 (classic) and method 2 (ACF-RN) return similar results
+			\item ACF-RN power estimation error is slightly higher than of the classic method
+			\item ACF-RN is influenced by coherent/non-coherent sampling
+			\item \textbf{Highlights}
+			\begin{itemize}
+				\item ACF-RN returns usable results without additional noise data
+				\item therefore, ACF-RN seems to be a good candidate for fully automated signal analysis
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section{Outlook}
+	\begin{frame}
+		\frametitle{Outlook}
+		% briefly describe further and connected research
+		The ACF-RN method's basic principles have been defined. However, some questions remain unanswered and require further consideration.
+		\vspace*{1em}
+		\begin{itemize}
+			\item Adapt ACF-RN for other signal models
+			\item Examine the difference between biased and unbiased ACF estimator
+			\item Find ways to reduce the influence of coherent/non-coherent sampling
+			\item Investigate the impact of ACF-RN on signal-to-noise ratio estimation
+			\item Investigate the impact of ACF-RN on Wiener FIR filter design
+		\end{itemize}
+	\end{frame}
+	%
+	%-------------------------------------------------------------------------------------------------------------------
+	\section*{References}
+	\begin{frame}[noframenumbering]
+		\frametitle{References}
+		\printbibliography
+		%\nocite{*}
+	\end{frame}
+	%
+	%===================================================================================================================
+	\appendix
+	\section{\appendixname}
+	%
+	\begin{frame}[allowframebreaks]
+		\frametitle{\appendixname{} \textemdash{} Algorithm ACF-RN}
+		% mathematical formulation of the algorithm
+		\begin{algorithmic}
+			\State $n, m, N \in \mathbb{Z}$ \Comment{index variables}
+			\State $P[m,c_P) \in P_2(\mathbb{R})$ \Comment{polynomial, $2^{\text{nd}}$ order}
+		\end{algorithmic}
+		\vspace*{.5em}
+		\begin{algorithmic}[1]
+			\Require $7 \leq d \leq N-1$
+				\Comment{x axis crossings must be detectable within the ACF}
+			\State $R_{xx}[m] \gets
+				\frac{1}{N-|m|}
+				\sum\limits_{n=0}^{N-1} x[n] \cdot x[n-m] \; , m = -N+1,\ldots,N-1$
+				\Comment{ACF, unbiased}
+			\State $m_1 \gets
+				\inf\left(\underset{m}{\arg}(R_{xx}[m] \leq 0)\right) \; , m = 0,\ldots,N-1$
+				\Comment{lag of first x axis crossing}
+			\State $k_x \gets
+				R_{xx}[m_1 + 1] - R_{xx}[m_1]$
+				\Comment{slope of line crossing the x axis}
+			\State $m_x \gets
+				m_1 - \frac{R_{xx}[m_1]}{k_x}$
+				\Comment{estimate x axis crossing by linear interpolation}
+			\State $d \gets
+				2 \, m_x + 1$
+				\Comment{distance between first x axis crossings next to zero-lag}
+		\end{algorithmic}
+		\vspace*{.5em}
+		\small continued on next slide ...
+		\newpage
+		\begin{algorithmic}[1]
+			\setcounter{ALG@line}{5}
+			\State $R_{xx}^{(rn)} \gets
+				R_{xx}$
+			\State $d_6 \gets
+				\lceil \frac{d}{6} \rceil \; , d_6 \in \mathbb{Z}$
+				\Comment{half width of regression interval (rounded to infinity)}
+			\State $I_{reg} \gets
+				[-d_6,-d_6 + 1,\ldots,d_6]$
+				\Comment{regression interval index}
+			\State $c_P \gets
+				\underset{c_0,c_1,c_2}{\arg}\min( \frac{2}{d} \sum\limits_{m \in I_{reg}} (R_{xx,1}[m] - P[m,c_P))^2 )$
+				\Comment{polynomial parameters}
+			\State $R_{xx}^{(rn)}[m] \gets
+				P[m,c_P) \; , m \in I_{reg}$
+				\Comment{replace ACF magnitudes with polynomial}
+			\State \Return $R_{xx}^{(rn)}$
+		\end{algorithmic}
+		\vspace*{.5em}
+		\small See also: GNU Octave program code\cite{progcode}, function file tool\_acfrn.m, function tool\_acfnr.
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{\appendixname{} \textemdash{} Signal power and error estimates}
+		% mathematical formulation of the algorithm
+		\begin{algorithmic}
+			\State $\hat{P}_x \gets \frac{1}{N} \sum\limits_{n=0}^{N-1} x[n]^2$ \Comment{power of signal in noise, $[V^2]$}
+			\State $\hat{P}_{\nu} \gets \frac{1}{N} \sum\limits_{n=0}^{N-1} \nu[n]^2$ \Comment{power of reference noise, $[V^2]$}
+			\State $\hat{P}_{s,1} \gets \hat{P}_x - \hat{P}_{\nu}$ \Comment{Method 1, signal power, $[V^2]$}
+			\State $\hat{P}_{s,2} \gets R_{xx}^{(rn)}[0]$ \Comment{Method 2, signal power, $[V^2]$}
+			\State $err(\hat{P}_{s,1}) \gets \dfrac{\hat{P}_{s,1} - P_s}{P_s} \cdot 100$ \Comment{Method 1, relative signal power error, $[\%]$}
+			\State $err(\hat{P}_{s,2}) \gets \dfrac{\hat{P}_{s,2} - P_s}{P_s} \cdot 100$ \Comment{Method 2, relative signal power error, $[\%]$}
+		\end{algorithmic}
+		\vspace*{.5em}
+		\small See also: GNU Octave program code\cite{progcode}, function file wrapper\_acfrn\_pvar.m, function wrapper\_acfrn\_pvar.
+	\end{frame}
+	%
+	\begin{frame}[noframenumbering]
+		\frametitle{\appendixname{} \textemdash{} Author information}
+		\RIPauthorinfo{}
+	\end{frame}
+	\begin{frame}[noframenumbering]
+		\frametitle{\appendixname{} \textemdash{} Document license}
+		\expandafter\RIPcopyrightinfo\expandafter{\PresCopyrightType}
+	\end{frame}
+\end{document}
