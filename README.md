@@ -198,8 +198,9 @@ The *init* command initializes the program. The initialization must be run once 
 
 ```
     octave: >> test_acfrn('pvar'); # compute parameter variation, method comparison    
-    octave: >> test_acfrn('stats1'); # plot parameter variation stats, relative error vs. signal length, method comparison   
+    octave: >> test_acfrn('stats1'); # plot parameter variation stats, power estimation error, method comparison   
     octave: >> test_acfrn('stats2'); # plot parameter variation stats, error distribution, method comparison   
+    octave: >> test_acfrn('stats3'); # plot parameter variation stats, performance assessment, method comparison   
     octave: >> test_acfrn('sig'); # plot synthetic test signals   
     octave: >> test_acfrn('acf'); # compute/plot ACF examples, method comparison   
     octave: >> test_acfrn('nat'); # analyse/plot selected natural signals    
