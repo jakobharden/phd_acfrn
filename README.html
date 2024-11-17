@@ -1,0 +1,304 @@
+<h1>Frequency band estimation for sinusoidal low-pass signals in noise</h1>
+
+<h2>Abstract</h2>
+
+<p>The autocorrelation function (ACF) plays an important role in signal analysis. Numerous applications, such as the Wiener FIR filter design or signal power estimation, are based on this function. In these two applications, the influence of noise in the ACF is reduced by subtracting the noise power from the zero-lag magnitude of the ACF. Alas, this requires additional signal data that only contains i.i.d. noise.
+However, there are situations in which signal areas that only contain noise are difficult to identify or only a small amount of data is available. In such cases, considerable losses in accuracy may have to be accepted when estimating the signal power.
+The method I am about to introduce promises to significantly reduce the influence of signal noise in ACF estimation without the need for additional noise data. The technique involves replacing the ACF magnitudes in the area of the zero-lag with a regression polynomial. In it's initial design, the method is applicable to damped, sinusoidal signals.
+The numerical study presented here yields promising results. It demonstrates that the method can provide reliable signal power estimates for common applications, making it a practical and valuable tool.</p>
+
+<blockquote>
+  <p>[!NOTE]
+The entire content of this repository was conceived, implemented and tested by Jakob Harden using the scientific numerical programming language of GNU Octave 6.2.0 and TeXlive/TeXStudio.</p>
+</blockquote>
+
+<h2>Table of contents</h2>
+
+<ul>
+<li><a href="#license">License</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#directory-and-file-structure">Directory and file structure</a></li>
+<li><a href="#installation-instructions">Installation instructions</a></li>
+<li><a href="#usage-instructions">Usage instructions</a></li>
+<li><a href="#help-and-documentation">Help and Documentation</a></li>
+<li><a href="#related-data-sources">Related data sources</a></li>
+<li><a href="#related-software">Related software</a></li>
+<li><a href="#revision-and-release-history">Revision and release history</a></li>
+</ul>
+
+<h2>License</h2>
+
+<p>Copyright 2024 Jakob Harden (jakob.harden@tugraz.at, Graz University of Technology, Graz, Austria)</p>
+
+<p>This file is part of the PhD thesis of Jakob Harden.</p>
+
+<p>All GNU Octave function files (*.m) are licensed under the <em>GNU Affero General Public Licence v3.0</em>. See also licence information file "LICENSE".</p>
+
+<p>All other files are licensed under the <em>Creative Commons Attribution 4.0 International</em> licence. See also licence information: <a href="https://creativecommons.org/licenses/by/4.0/deed.en">Licence deed</a></p>
+
+<h2>Prerequisites</h2>
+
+<p>To be able to use the scripts, GNU Octave 6.2.0 (or a higher version) need to to be installed.
+GNU Octave is available via the package management system on many Linux distributions. Windows users have to download the Windows version of GNU Octave and to install the software manually.</p>
+
+<p><a href="https://octave.org/download">GNU Octave download</a></p>
+
+<p>To compile the LaTeX documents in this repository a TeXlive installation is required. The TeXlive package is available via the package management system on many Linux distributions. Windows users have to download the Windows version of TeXlive and to install the software manually.</p>
+
+<p><a href="https://www.tug.org/texlive/windows.html">TeXlive download</a></p>
+
+<blockquote>
+  <p>[!TIP]
+<strong>TeXStudio</strong> is a convinient and powerful solution to edit TeX files!</p>
+</blockquote>
+
+<h2>Directory and file structure</h2>
+
+<p>GNU Octave script files (*.m) are written in the scientific programming language of GNU Octave 6.2.0. LaTeX files (*.tex) are written with compliance to TeXlive version 2020.20210202-3. Text files are generally encoded in UTF-8.</p>
+
+<p>```
+acfrn
+├── latex
+│   └── test<em>acfnr
+│       ├── adaptthemePresRIP.tex
+│       ├── biblio.bib
+│       ├── main.tex
+│       └── oct2texdefs.tex
+├── octave
+│   ├── results
+│   │   └── test</em>acfrn
+│   │       ├── noise<em>Nsmp20480</em>Nmc500.oct
+│   │       ├── *.oct
+│   │       ├── *.ofig
+│   │       ├── *.png
+│   │       └── *.tex <br />
+│   ├── struct
+│   │   ├── README.txt
+│   │   ├── struct<em>objattrib.m
+│   │   ├── struct</em>objdata.m
+│   │   └── struct<em>objref.m
+│   ├── tex
+│   │   ├── README.txt
+│   │   ├── tex</em>def<em>csvarray.m
+│   │   ├── tex</em>def<em>dotarray.m
+│   │   ├── tex</em>def<em>scalar.m
+│   │   ├── tex</em>def<em>tabarray.m
+│   │   ├── tex</em>def<em>tabmatrix.m
+│   │   ├── tex</em>serialize.m
+│   │   ├── tex<em>settings.m
+│   │   ├── tex</em>struct<em>export.m
+│   │   ├── tex</em>struct.m
+│   │   ├── tex<em>struct</em>objattrib.m
+│   │   ├── tex<em>struct</em>objdata.m
+│   │   └── tex<em>struct</em>objref.m
+│   ├── tools
+│   │   ├── tool<em>est</em>acf<em>period.m
+│   │   ├── tool</em>est<em>acfrn.m
+│   │   ├── tool</em>gen<em>noise.m
+│   │   ├── tool</em>gen<em>sinusoidal1.m
+│   │   ├── tool</em>plot<em>errorbar</em>extended.m
+│   │   ├── tool<em>plot</em>labelgroups.m
+│   │   ├── tool<em>plot</em>labelseries.m
+│   │   ├── tool<em>plot</em>perfassmat.m
+│   │   ├── tool<em>plot</em>vsep.m
+│   │   ├── tool<em>scale</em>noise2snr.m
+│   │   └── tool<em>stats</em>dmat.m
+│   ├── variations
+│   │   └── var<em>param5mc.m
+│   ├── init.m
+│   ├── test</em>acfrn.m
+│   └── wrapper<em>acfrn</em>pvar.m
+├── published
+├── LICENSE
+├── README.html
+└── README.md</p>
+
+<p>```</p>
+
+<ul>
+<li><strong>acfrn</strong> ... main program directory
+<ul>
+<li>LICENSE ... AGPLv3 licence information file</li>
+<li>README.md ... this file, information about the program</li>
+<li>README.html ... html version of this file</li>
+</ul></li>
+<li><strong>acfrn/latex/test_acfrn</strong> ... directory, LaTeX documents, presentation slides (CC BY-4.0)
+<ul>
+<li>adaptthemePresRIP.tex ... file, LaTeX beamer class configuration</li>
+<li>biblio.bib ... file, bibliography</li>
+<li>main.tex ... file, main LaTeX document, presentation source code</li>
+<li>oct2texdefs.tex ... file, conviniently import field data from GNU Octave data structures into LaTeX documents</li>
+</ul></li>
+<li><strong>acfrn/published</strong> ... directory, published documents, archives (AGPLv3, CC BY-4.0)</li>
+<li><strong>acfrn/octave</strong> ... directory, GNU Octave script files and analysis results (AGPLv3)
+<ul>
+<li>init.m ... function file, initialization script, load packages, add subdirectories to path environment variable</li>
+<li>test_acfrn.m ... function file, main script, auto-correlation function tests</li>
+<li>wrapper_acfrn_pvar.m ... function file, wrapper script for the automated parameter variation</li>
+</ul></li>
+<li><strong>acfrn/octave/results/test_acfrn</strong> ... directory, analysis results (CC BY-4.0)
+<ul>
+<li>noise_Nsmp20480_Nmc500.oct ... GNU Octave binary file, standard noise data matrix (to reproduce analysis results, see also function file <em>tool_gen_noise.m</em>)</li>
+<li>*.oct ... GNU Octave binary files, analysis results</li>
+<li>*.ofig ... GNU Octave binary files, figures</li>
+<li>*.png ... portable network graphics, figures</li>
+<li>*.tex ... TeX file, exported analysis results (see also TeX file <em>oct2texdefs.tex</em>)</li>
+</ul></li>
+<li><strong>acfrn/octave/struct</strong> ... directory, data structure building tools (MIT license)
+<ul>
+<li>README.txt ... file, additional information about the directory content</li>
+<li>struct_objattrib.m ... function file, create attribute object (atomic attribute element, AAE)</li>
+<li>struct_objdata.m ... function file, create data object (atomic data element, ADE)</li>
+<li>struct_objref.m ... function file, create reference object (atomic reference element, ARE)</li>
+</ul></li>
+<li><strong>acfrn/octave/tex</strong> ... directory, data structure TeX file export tools (MIT license)
+<ul>
+<li>README.txt ... file, additional information about the directory content</li>
+<li>tex_def_csvarray.m ... function file, serialize array variable to TeX code (comma-separated list, e.g. version numbers)</li>
+<li>tex_def_dotarray.m ... function file, serialize short array variable to TeX code (dot-separated list, e.g. structure path)</li>
+<li>tex_def_scalar.m ... function file, serialize scalar value to TeX code</li>
+<li>tex_def_tabarray.m ... function file, serialize array value to TeX code (tabulated)</li>
+<li>tex_def_tabmatrix.m ... function file, serialize matrix value to TeX code (tabulated)</li>
+<li>tex_serialize.m ... function file, serialize single value of various data types</li>
+<li>tex_settings.m ... function file, create data structure containing the TeX code serialization settings</li>
+<li>tex_struct_export.m ... function file, export data structure(s) to TeX code file</li>
+<li>tex_struct.m ... function file, serialize data structure(s) to TeX code</li>
+<li>tex_struct_objattrib.m ... function file, serialize atomic attribute element to TeX code</li>
+<li>tex_struct_objdata.m ... function file, serialize atomic data element to TeX code</li>
+<li>tex_struct_objref.m ... function file, serialize atomic reference element to TeX code</li>
+</ul></li>
+<li><strong>acfrn/octave/tools</strong> ... directory, tool scripts (AGPLv3)
+<ul>
+<li>tool_est_acf_period.m ... function file, auto-correlation function (ACF) signal period estimation for sinusoidal signals</li>
+<li>tool_est_acfrn.m ... function file, estimate auto-correlation function with reduced impact of noise</li>
+<li>tool_gen_noise.m ... function file, generate standard noise data for reproducible analysis results</li>
+<li>tool_gen_sinusoidal1.m ... function file, generate (damped) sinusoidal signals</li>
+<li>tool_plot_errorbar_extended.m ... function file, plot errorbars, extended support for errorbar symbols and symbol formatting</li>
+<li>tool_plot_labelgroups.m ... function file, plot groups of labels</li>
+<li>tool_plot_labelseries.m ... function file, plot series of labels</li>
+<li>tool_plot_perfassmat.m ... function file, plot performance assessment matrix (colored, boxed grid with box labels)</li>
+<li>tool_plot_vsep.m ... function file, plot vertical separator lines with labels</li>
+<li>tool_scale_noise2snr.m ... function file, scale noise data w.r.t. signal power and signal-to-noise ratio</li>
+<li>tool_stats_dmat.m ... function file, compute statistical values for a 2D data matrix</li>
+</ul></li>
+<li><strong>acfrn/octave/variations</strong> ... directory, parameter variation tools (AGPLv3)
+<ul>
+<li>var_param5mc.m ... function file, vary up to 5 parameters with an additional Monte-Carlo test</li>
+</ul></li>
+</ul>
+
+<h2>Installation instructions</h2>
+
+<ol>
+<li>Download datasets (see references below) and move them to a directory of your choice. e.g. <strong>/home/acme/science/data</strong></li>
+<li>Copy the program directory <strong>acfrn</strong> to a location of your choice. e.g. <strong>/home/acme/science/acfrn</strong>.   </li>
+<li>Open GNU Octave.   </li>
+<li>Make the program directory <strong>/home/acme/science/acfrn</strong> the working directory.   </li>
+</ol>
+
+<h2>Usage instructions</h2>
+
+<ol>
+<li>Set dataset path variable <em>dspath</em> in function file <em>test_acfrn.m</em> to data directory. e.g. dspath = '/home/acme/science/data';   </li>
+<li>Open GNU Octave.   </li>
+<li>Initialize program.   </li>
+<li>Run script files.   </li>
+</ol>
+
+<h3>Initialize program (command line interface)</h3>
+
+<p>The <em>init</em> command initializes the program. The initialization must be run once before executing all the other functions. The command is adding the subdirectories included in the main program directory to the 'path' environment variable. Furthermore, <em>init</em> is loading additional GNU Octave packages required for the program execution.</p>
+
+<p><code>
+    octave: &gt;&gt; init;
+</code></p>
+
+<h3>Execute function file (command line interface)</h3>
+
+<p><code>
+    octave: &gt;&gt; test_acfrn('pvar'); # compute parameter variation, method comparison <br />
+    octave: &gt;&gt; test_acfrn('stats1'); # plot parameter variation stats, relative error vs. signal length, method comparison <br />
+    octave: &gt;&gt; test_acfrn('stats2'); # plot parameter variation stats, error distribution, method comparison <br />
+    octave: &gt;&gt; test_acfrn('sig'); # plot synthetic test signals <br />
+    octave: &gt;&gt; test_acfrn('acf'); # compute/plot ACF examples, method comparison <br />
+    octave: &gt;&gt; test_acfrn('nat'); # analyse/plot selected natural signals
+</code></p>
+
+<blockquote>
+  <p>[!NOTE]
+To reproduce all analysis results shown in the presentation in <strong>acfrn/latex/test_acfrn</strong>, run all commands from above.</p>
+</blockquote>
+
+<h2>Help and Documentation</h2>
+
+<p>All function files contain an adequate function description and instructions on how to use the functions. This documentation can be displayed in the GNU Octave command line interface by entering the following command:</p>
+
+<p><code>
+    octave: &gt;&gt; help function_file_name;
+</code></p>
+
+<h2>Related data sources</h2>
+
+<p>Datasets whos content can be analyzed and plotted with this scripts are made available at the repository of Graz University of Technology under an open license (Creative Commons, CC BY 4.0). The data records enlisted below contain the raw data, the compiled datasets and a technical description of the record content.</p>
+
+<h3>Data records</h3>
+
+<ul>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 1, Cement Paste at Early Stages". Graz University of Technology. <a href="https://doi.org/10.3217/bhs4g-m3z76">doi: 10.3217/bhs4g-m3z76</a>   </li>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 3, Reference Tests on Air". Graz University of Technology. <a href="https://doi.org/10.3217/ph0jm-8ax76">doi: 10.3217/ph0jm-8ax76</a>   </li>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 4, Cement Paste at Early Stages". Graz University of Technology. <a href="https://doi.org/10.3217/f62md-kep36">doi: 10.3217/f62md-kep36</a>   </li>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 5, Reference Tests on Air". Graz University of Technology. <a href="https://doi.org/10.3217/bjkrj-pg829">doi: 10.3217/bjkrj-pg829</a>   </li>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 6, Reference Tests on Water". Graz University of Technology. <a href="https://doi.org/10.3217/hn7we-q7z09">doi: 10.3217/hn7we-q7z09</a>   </li>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Datasets - Test Series 7, Reference Tests on Aluminium Cylinder". Graz University of Technology. <a href="https://doi.org/10.3217/azh6e-rvy75">doi: 10.3217/azh6e-rvy75</a>   </li>
+</ul>
+
+<h2>Related software</h2>
+
+<h3>Dataset Compiler, version 1.1:</h3>
+
+<p>The referenced datasets are compiled from raw data using a dataset compilation tool implemented in the programming language of GNU Octave 6.2.0. To understand the structure of the datasets, it is a good idea to look at the soure code of that tool. Therefore, it was made publicly available under the MIT license at the repository of Graz University of Technology.</p>
+
+<ul>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Data set compiler (1.1)". Graz University of Technology. <a href="https://doi.org/10.3217/6qg3m-af058">doi: 10.3217/6qg3m-af058</a></li>
+</ul>
+
+<blockquote>
+  <p>[!NOTE]
+<em>Dataset Compiler</em> is also available on <strong>github</strong>. <a href="https://github.com/jakobharden/phd_dataset_compiler">Dataset Compiler</a></p>
+</blockquote>
+
+<h3>Dataset Exporter, version 1.0:</h3>
+
+<p><em>Dataset Exporter</em> is implemented in the programming language of GNU Octave 6.2.0 and allows for exporting data contained in the datasets. The main features of that script collection cover the export of substructures to variables and the serialization to the CSV format, the JSON structure format and TeX code. It is also made publicly available under the MIT licence at the repository of Graz University of Technology.</p>
+
+<ul>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Dataset Exporter (1.0)". Graz University of Technology. <a href="https://doi.org/10.3217/9adsn-8dv64">doi: 10.3217/9adsn-8dv64</a></li>
+</ul>
+
+<blockquote>
+  <p>[!NOTE]
+<em>Dataset Exporter</em> is also available on <strong>github</strong>. <a href="https://github.com/jakobharden/phd_dataset_exporter">Dataset Exporter</a></p>
+</blockquote>
+
+<h3>Dataset Viewer, version 1.0:</h3>
+
+<p><em>Dataset Viewer</em> is implemented in the programming language of GNU Octave 6.2.0 and allows for plotting measurement data contained in the datasets. The main features of that script collection cover 2D plots, 3D plots and rendering MP4 video files from the measurement data contained in the datasets. It is also made publicly available under the MIT licence at the repository of Graz University of Technology.</p>
+
+<ul>
+<li>Harden, J. (2023) "Ultrasonic Pulse Transmission Tests: Dataset Viewer (1.0)". Graz University of Technology. <a href="https://doi.org/10.3217/c1ccn-8m982">doi: 10.3217/c1ccn-8m982</a></li>
+</ul>
+
+<blockquote>
+  <p>[!NOTE]
+<em>Dataset Viewer</em> is also available on <strong>github</strong>. <a href="https://github.com/jakobharden/phd_dataset_viewer">Dataset Viewer</a></p>
+</blockquote>
+
+<h2>Revision and release history</h2>
+
+<h3>2024-11-30, version 1.0</h3>
+
+<ul>
+<li>published/released version 1.0, by Jakob Harden   </li>
+<li>url: <a href="xxxxxxxx">Repository of Graz University of Technology</a>   </li>
+<li>doi: xxxxxxxxx   </li>
+</ul>
