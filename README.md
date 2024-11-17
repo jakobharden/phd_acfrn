@@ -1,4 +1,4 @@
-# Frequency band estimation for sinusoidal low-pass signals in noise
+# Auto-correlation function estimation with reduced impact of noise
 
 ## Abstract
 
