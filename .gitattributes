@@ -1,1 +1,2 @@
+noise*.oct filter=lfs diff=lfs merge=lfs -text
 octave/results/test_acfrn/noise_Nsmp20480_Nmc500.oct filter=lfs diff=lfs merge=lfs -text
