@@ -7,7 +7,8 @@
 ## Run modes:
 ##   p_rm = 'pvar':   compute parameter variation
 ##   p_rm = 'stats1': plot parameter variation stats, relative error vs. signal length, method comparison
-##   p_rm = 'stats2': plot parameter variation stats, error distribution, method comparison
+##   p_rm = 'stats2': plot parameter variation stats, error distributions, method comparison
+##   p_rm = 'stats3': plot parameter variation stats, performance assessment, method comparison
 ##   p_rm = 'sig':    plot synthetic test signals
 ##   p_rm = 'acf':    compute/plot ACF examples
 ##   p_rm = 'nat':    compute/plot application examples, natural signals
@@ -234,8 +235,9 @@ function test_acfrn_stats1(p_ads, p_ps)
         title(ah, sprintf('%s\n%s', p_ps.tit1, istr));
         ## legend
         legend(ah, 'box', 'off', 'location', 'southoutside', 'orientation', 'horizontal', 'numcolumns', 5);
-        ## add copyright information
-        #annotation("textbox", [0, 0, 100, 10], 'string', 'Copyright 2024 Jakob Harden', 'linestyle', 'none', 'fontsize', 8);
+        ## license information
+        annotation(fh, 'textbox', [0, 0, 100, 10], 'string', 'CC BY-4.0 Jakob Harden (Graz University of Technology), 2024', ...
+          'linestyle', 'none', 'fontsize', 8);
         ## save figure
         ofn_pfx = sprintf('stats1_%s_N1_%d_DF_%d_SNR_%d', c_acf_mode, N1, DF, SNR);
         hgsave(fh, fullfile(p_ps.rpath, sprintf('%s.ofig', ofn_pfx)));
@@ -316,7 +318,6 @@ function test_acfrn_stats2(p_ads, p_ps)
     ## print status message
     printf('Plotting stats: N1 = %d, Ncy = %d,...,%d, Nmc = %d\n', N1, v_NCY(1), v_NCY(end), v_idxMC(end));
     ## update plot settings
-    #p_ps.rtp = 'pow';
     p_ps.tit = sprintf('%s (N1 = %d, Ncy = %d,...,%d, Nmc = %d)', p_ps.tit1, N1, v_NCY(1), v_NCY(end), v_idxMC(end));
     ## plot power stats
     fh1 = figure('name', 'Stats2, Ps', 'position', [100, 100, 800, 500]);
@@ -327,6 +328,7 @@ function test_acfrn_stats2(p_ads, p_ps)
     ofp_png1 = fullfile(p_ps.rpath, sprintf('%s.png', ofn_pfx));
     hgsave(fh1, ofp_fig1);
     saveas(fh1, ofp_png1, 'png');
+    close(fh1);
   endfor
   
 endfunction
@@ -427,6 +429,9 @@ function test_acfrn_stats2_detail(p_fh, p_y1, p_y2, p_gi, p_ps)
       ## setup y axis labels
       ylabel(ah(j), sprintf('%s [%s]', p_ps.ylbl, p_ps.yunit));
     endif
+    ## license information
+    annotation(p_fh, 'textbox', [0, 0, 100, 10], 'string', 'CC BY-4.0 Jakob Harden (Graz University of Technology), 2024', ...
+      'linestyle', 'none', 'fontsize', 8);
   endfor
   
   ## main axes
@@ -571,7 +576,7 @@ function test_acfrn_stats3_detail(p_fh, p_ads, p_ps, p_sm)
   legx0 = legx1 - legw * 0.5;
   
   ## create axes
-  ah = axes(p_fh, 'clipping', 'off');
+  ah = axes(p_fh, 'clipping', 'off', 'position', [0.1, 0.05, 0.8, 0.9]);
   
   ## adjust axis appearance
   axis(ah, 'off', 'equal');
@@ -613,6 +618,10 @@ function test_acfrn_stats3_detail(p_fh, p_ads, p_ps, p_sm)
   ## title
   title(ah, sprintf('Performance assessment - Method %d (%s)\n%s(err), lim_1 = %.1f [%%], lim_2 = %.1f [%%]', ...
     p_ps.pa_rtp, c_acf_mode, p_ps.pa_vt, p_ps.pa_vl(1), p_ps.pa_vl(2)));
+    
+  ## license information
+  annotation(p_fh, 'textbox', [0, 0, 100, 10], 'string', 'CC BY-4.0 Jakob Harden (Graz University of Technology), 2024', ...
+    'linestyle', 'none', 'fontsize', 8);
   
 endfunction
 
@@ -681,10 +690,10 @@ function test_acfrn_nat(p_ps, p_dfp, p_cid, p_sid, p_lim)
   n_max1 = p_lim(2) + 0.25 * n_rng;
   
   ## create figure
-  fh = figure('name', 'Application examples', 'position', [100, 100 640, floor(640 / 1.62)]);
+  fh = figure('name', 'Application examples', 'position', [100, 100, 640, 640 / 1.62]);
   
   ## create axes
-  ah = axes(fh, 'tickdir', 'out');
+  ah = axes(fh, 'tickdir', 'out', 'position', [0.15, 0.15, 0.8, 0.7]);
   
   ## begin plot
   hold(ah, 'on');

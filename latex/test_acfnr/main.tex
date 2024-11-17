@@ -161,8 +161,7 @@
 						\setlength\itemsep{0.5em}
 						\item damped, sinusoidal signals in noise (synthetic signals)
 						\item $x[n] = s[n] + \nu[n]$ , $\nu$\ldots i.i.d. noise (GWN)
-						\item $s[n] = A \cdot \sin(n \, \omega) \cdot e^{-DF \frac{n}{N-1}}$
-						\item $\omega = \frac{2 \, \pi \, N_{cy}}{N-1}$
+						\item $s[n] = A \cdot \sin(2 \, \pi \, N_{cy} \, \frac{n}{N-1}) \cdot e^{-DF \frac{n}{N-1}}$
 						\item $N = N_1 \, N_{cy} \; , n = 0,\ldots,N-1$
 						\item $A$\ldots signal amplitude
 						\item $N_1$\ldots signal period
@@ -194,8 +193,8 @@
 				\item $2^{\text{nd}}$ order polynomial regression
 				\item Parameter variation (period, cycles, decay, SNR, noise)
 				\item Monte-Carlo test to estimate the impact of noise
-				\item Method 1: estimate signal power using additional noise data
-				\item \textbf{Method 2: estimate signal power using the ACF with noise reduction}
+				\item Method 1 (M1): estimate signal power using additional noise data
+				\item \textbf{Method 2 (M2): estimate signal power using the ACF with noise reduction}
 				\item Comparison of method 1 and method 2 w.r.t. signal power estimates
 			\end{itemize}
 		\end{itemize}
@@ -222,8 +221,8 @@
 			\end{enumerate}
 		\end{itemize}
 		\vspace*{.5em}
-		\small Perform step 5 to 7 if signal period is greater or equal to 13 samples.\\
-		See also Appendix, algorithm ACF-RN.
+		\small Perform step 5 to 7 if signal period is greater or equal to 7 samples.\\
+		See also Appendix, page \pageref{app:algorithm}.
 	\end{frame}
 	%
 	\begin{frame}
@@ -239,11 +238,11 @@
 				\setlength\itemsep{0.5em}
 				\item Constant: $A = 1 \quad [V]$
 				\item Constant: unbiased ACF estimation
-				\item Variation 1: $N_1 = (64, 512, 1024, 4096) \quad [\text{samples}]$
-				\item Variation 2: $SNR = (5, 10, 15, 20) \quad [dB]$
-				\item Variation 3: $DF = (0, 2, 4) \quad [1]$
-				\item Variation 4: $N_{cy} = (1,\ldots,5) \quad [\#]$, subdivided into 33 steps
-				\item Variation 5: $N_{mc} = 500 \quad [\#]$, Monte-Carlo test turns
+				\item Variation 1: $N_1 = (64, 512, 1024, 4096)$ samples
+				\item Variation 2: $SNR = (5, 10, 15, 20)$ dB
+				\item Variation 3: $DF = (0, 2, 4)$
+				\item Variation 4: $N_{cy} = (1,\ldots,5)$ samples, subdivided into 81 steps
+				\item Variation 5: $N_{mc} = 500$ turns, Monte-Carlo test
 			\end{enumerate}
 		\end{itemize}
 		\vspace*{.5em}
@@ -252,10 +251,10 @@
 	\end{frame}
 	%
 	%-------------------------------------------------------------------------------------------------------------------
-	\section{Preliminary results}
+	\section{Results}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Signal power estimates, Example I}
+		\frametitle{Results - Signal power estimates, example I}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
@@ -272,16 +271,16 @@
 				\end{itemize}
 				\textbf{Observations}\\
 				\begin{itemize}
-					\item Ripple in M2 (ACF-RN)
+					\item significant ripple in M2 (ACF-RN)
 					\item Error becomes smaller with increasing N
-					\item M2 is converging to M1
+					\item M2 is converging against M1
 				\end{itemize}
 			\end{RIPcolright}
 		\end{columns}
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Signal power estimates, Example II}
+		\frametitle{Results - Signal power estimates, example II}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
@@ -306,7 +305,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Error distribution comparison I}
+		\frametitle{Results - Error distribution comparison I}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
@@ -333,7 +332,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Error distribution comparison II}
+		\frametitle{Results - Error distribution comparison II}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
@@ -357,7 +356,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Error distributions comparison III}
+		\frametitle{Results - Error distributions comparison III}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
@@ -381,13 +380,13 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Performance assessment I}
+		\frametitle{Results - Performance assessment I}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=100mm,,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_MAX_5_10.png}
+					\includegraphics[width=100mm,trim={0mm 10mm 20mm 50mm},clip]{stats3_unbiased_m2_MAX_5_10.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -399,20 +398,20 @@
 				\vspace{.5em}
 				\textbf{Method 1}\\
 				\begin{figure}
-					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_MAX_5_10.png}
+					\includegraphics[width=45mm,trim={32mm 20mm 45mm 80mm},clip]{stats3_unbiased_m1_MAX_5_10.png}
 				\end{figure}
 			\end{RIPcolright}
 		\end{columns}
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Performance assessment II}
+		\frametitle{Results - Performance assessment II}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=100mm,,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_Q95_5_10.png}
+					\includegraphics[width=100mm,,trim={0mm 10mm 20mm 50mm},clip]{stats3_unbiased_m2_Q95_5_10.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -424,20 +423,20 @@
 				\vspace{.5em}
 				\textbf{Method 1}\\
 				\begin{figure}
-					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_Q95_5_10.png}
+					\includegraphics[width=45mm,trim={32mm 20mm 45mm 80mm},clip]{stats3_unbiased_m1_Q95_5_10.png}
 				\end{figure}
 			\end{RIPcolright}
 		\end{columns}
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Performance assessment III}
+		\frametitle{Results - Performance assessment III}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=100mm,trim={10mm 10mm 20mm 80mm},clip]{stats3_unbiased_m2_Q3_5_10.png}
+					\includegraphics[width=100mm,trim={0mm 10mm 20mm 50mm},clip]{stats3_unbiased_m2_Q3_5_10.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -449,14 +448,14 @@
 				\vspace{.5em}
 				\textbf{Method 1}\\
 				\begin{figure}
-					\includegraphics[width=45mm,trim={30mm 20mm 10mm 80mm},clip]{stats3_unbiased_m1_Q3_5_10.png}
+					\includegraphics[width=45mm,trim={32mm 20mm 45mm 80mm},clip]{stats3_unbiased_m1_Q3_5_10.png}
 				\end{figure}
 			\end{RIPcolright}
 		\end{columns}
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Application examples}
+		\frametitle{Results - Application examples}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_20}
@@ -464,11 +463,11 @@
 		\begin{itemize}
 			\item \textbf{Ultrasonic pulse transmission tests (UPTM)}
 			\begin{itemize}
-				\item Test series: \OTuse{tsn.v}
-				\item Data set: \OTuse{dscode.v}.oct\cite{dscempaste1}
+				\item Test series: \OTuse{tsn.v}\cite{ts1ds}
+				\item Data set: \OTuse{dscode.v}.oct
 				\item Channel: \OTuse{chn.v} (primary wave, compression wave)
 			\end{itemize}
-			\item Reference noise: $\nu[n] = x[n] \; , n = [0,...,999]$ \ldots pre-trigger section, only noise
+			\item Reference noise: $\nu[n] = x[n] \; , n = [0,...,999]$ \ldots pre-trigger section, noise only
 			\item $\hat{P}_x = \frac{1}{n_2 - n_1 + 1} \sum\limits_{n=n_1}^{n_2} x[n]^2$ \ldots power of signal in noise, window limits $n_1$, $n_2$
 			\item $\hat{P}_{s,1} = \hat{P}_x - \hat{P}_{\nu}$ \ldots method 1
 			\item $\hat{P}_{s,2} = R_{xx}^{(rn)}[0]$ \ldots method 2
@@ -478,7 +477,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Application example I}
+		\frametitle{Results - Application example I}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_20}
@@ -486,7 +485,7 @@
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_20.png}
+					\includegraphics[width=90mm,trim={0mm 0mm 20mm 28mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_20.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -510,7 +509,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Application example II}
+		\frametitle{Results - Application example II}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_50}
@@ -518,7 +517,7 @@
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_50.png}
+					\includegraphics[width=90mm,trim={0mm 0mm 20mm 28mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_50.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -542,7 +541,7 @@
 	\end{frame}
 	%
 	\begin{frame}
-		\frametitle{Preliminary results - Application example III}
+		\frametitle{Results - Application example III}
 		% place graphs and images in the left column
 		% comment on results in the right column
 		\input{\RPATH/nat_ds_ts1_wc040_d70_1_cid_1_sid_288}
@@ -550,7 +549,7 @@
 		\begin{columns}[t]
 			\begin{RIPcolleft}
 				\begin{figure}
-					\includegraphics[width=80mm,trim={0mm 0mm 20mm 25mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_288.png}
+					\includegraphics[width=90mm,trim={0mm 0mm 20mm 28mm},clip]{nat_ds_ts1_wc040_d70_1_cid_1_sid_288.png}
 				\end{figure}
 			\end{RIPcolleft}
 			\begin{RIPcolright}
@@ -586,13 +585,13 @@
 				\item with increasing amount of signal data
 				\item with increasing signal-to-noise ratio
 			\end{itemize}
-			\item Method 1 (classic) and method 2 (ACF-RN) return similar results
+			\item Method 1 (classic) and method 2 (ACF-RN) return comparable results
 			\item ACF-RN power estimation error is slightly higher than of the classic method
 			\item ACF-RN is influenced by coherent/non-coherent sampling
 			\item \textbf{Highlights}
 			\begin{itemize}
-				\item ACF-RN returns usable results without additional noise data
-				\item therefore, ACF-RN seems to be a good candidate for fully automated signal analysis
+				\item ACF-RN returns usable results \textbf{without} additional noise data
+				\item therefore, ACF-RN is a good candidate for fully automated signal analysis
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
@@ -626,7 +625,7 @@
 	\section{\appendixname}
 	%
 	\begin{frame}[allowframebreaks]
-		\frametitle{\appendixname{} \textemdash{} Algorithm ACF-RN}
+		\frametitle{\appendixname{} \textemdash{} Algorithm ACF-RN}\label{app:algorithm}
 		% mathematical formulation of the algorithm
 		\begin{algorithmic}
 			\State $n, m, N \in \mathbb{Z}$ \Comment{index variables}

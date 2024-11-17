@@ -73,14 +73,11 @@ function [r_ss, r_nn, r_ns] = tool_gen_sinusoidal1(p_am, p_n1, p_nc, p_df)
   ## sample index
   r_nn = 0 : r_ns - 1;
   
-  ## angular frequency
-  omg = 2 * pi / p_n1;
-  
   ## signal amplitude array
   if (p_df < 1e-6)
-    r_ss = p_am * sin(r_nn * omg);
+    r_ss = p_am * sin(r_nn * (2 * pi / p_n1));
   else
-    r_ss = p_am * sin(r_nn * omg) .* exp(-p_df * r_nn / r_ns);
+    r_ss = p_am * sin(r_nn * omg) .* exp((-p_df / r_ns) * r_nn);
   endif
   
 endfunction
