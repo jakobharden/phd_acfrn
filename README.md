@@ -56,117 +56,116 @@ To compile the LaTeX documents in this repository a TeXlive installation is requ
 GNU Octave script files (\*.m) are written in the scientific programming language of GNU Octave 6.2.0. LaTeX files (\*.tex) are written with compliance to TeXlive version 2020.20210202-3. Text files are generally encoded in UTF-8.
 
 ```
-acfrn
-├── latex
-│   └── test_acfnr
-│       ├── adaptthemePresRIP.tex
-│       ├── biblio.bib
-│       ├── main.tex
-│       └── oct2texdefs.tex
-├── octave
-│   ├── results
-│   │   └── test_acfrn
-│   │       ├── noise_Nsmp20480_Nmc500.oct
-│   │       ├── *.oct
-│   │       ├── *.ofig
-│   │       ├── *.png
+acfrn   
+├── latex   
+│   └── test_acfnr   
+│       ├── adaptthemePresRIP.tex   
+│       ├── biblio.bib   
+│       ├── main.tex   
+│       └── oct2texdefs.tex   
+├── octave   
+│   ├── results   
+│   │   └── test_acfrn   
+│   │       ├── noise_Nsmp20480_Nmc500.oct   
+│   │       ├── *.oct   
+│   │       ├── *.ofig   
+│   │       ├── *.png   
 │   │       └── *.tex   
-│   ├── struct
-│   │   ├── README.txt
-│   │   ├── struct_objattrib.m
-│   │   ├── struct_objdata.m
-│   │   └── struct_objref.m
-│   ├── tex
-│   │   ├── README.txt
-│   │   ├── tex_def_csvarray.m
-│   │   ├── tex_def_dotarray.m
-│   │   ├── tex_def_scalar.m
-│   │   ├── tex_def_tabarray.m
-│   │   ├── tex_def_tabmatrix.m
-│   │   ├── tex_serialize.m
-│   │   ├── tex_settings.m
-│   │   ├── tex_struct_export.m
-│   │   ├── tex_struct.m
-│   │   ├── tex_struct_objattrib.m
-│   │   ├── tex_struct_objdata.m
-│   │   └── tex_struct_objref.m
-│   ├── tools
-│   │   ├── tool_est_acf_period.m
-│   │   ├── tool_est_acfrn.m
-│   │   ├── tool_gen_noise.m
-│   │   ├── tool_gen_sinusoidal1.m
-│   │   ├── tool_plot_errorbar_extended.m
-│   │   ├── tool_plot_labelgroups.m
-│   │   ├── tool_plot_labelseries.m
-│   │   ├── tool_plot_perfassmat.m
-│   │   ├── tool_plot_vsep.m
-│   │   ├── tool_scale_noise2snr.m
-│   │   └── tool_stats_dmat.m
-│   ├── variations
-│   │   └── var_param5mc.m
-│   ├── init.m
-│   ├── test_acfrn.m
-│   └── wrapper_acfrn_pvar.m
-├── published
-├── LICENSE
-├── README.html
-└── README.md
-
+│   ├── struct   
+│   │   ├── README.txt   
+│   │   ├── struct_objattrib.m   
+│   │   ├── struct_objdata.m   
+│   │   └── struct_objref.m   
+│   ├── tex   
+│   │   ├── README.txt   
+│   │   ├── tex_def_csvarray.m   
+│   │   ├── tex_def_dotarray.m   
+│   │   ├── tex_def_scalar.m   
+│   │   ├── tex_def_tabarray.m   
+│   │   ├── tex_def_tabmatrix.m   
+│   │   ├── tex_serialize.m   
+│   │   ├── tex_settings.m   
+│   │   ├── tex_struct_export.m   
+│   │   ├── tex_struct.m   
+│   │   ├── tex_struct_objattrib.m   
+│   │   ├── tex_struct_objdata.m   
+│   │   └── tex_struct_objref.m   
+│   ├── tools   
+│   │   ├── tool_est_acf_period.m   
+│   │   ├── tool_est_acfrn.m   
+│   │   ├── tool_gen_noise.m   
+│   │   ├── tool_gen_sinusoidal1.m   
+│   │   ├── tool_plot_errorbar_extended.m   
+│   │   ├── tool_plot_labelgroups.m   
+│   │   ├── tool_plot_labelseries.m   
+│   │   ├── tool_plot_perfassmat.m   
+│   │   ├── tool_plot_vsep.m   
+│   │   ├── tool_scale_noise2snr.m   
+│   │   └── tool_stats_dmat.m   
+│   ├── variations   
+│   │   └── var_param5mc.m   
+│   ├── init.m   
+│   ├── test_acfrn.m   
+│   └── wrapper_acfrn_pvar.m   
+├── published   
+├── LICENSE   
+├── README.html   
+└── README.md   
 ```
 
 - **acfrn** ... main program directory
-  - LICENSE ... AGPLv3 licence information file
-  - README.md ... this file, information about the program
-  - README.html ... html version of this file
+  - *LICENSE* ... AGPLv3 licence information file
+  - *README.md* ... this file, information about the program
+  - *README.html* ... html version of this file
 - **acfrn/latex/test\_acfrn** ... directory, LaTeX documents, presentation slides (CC BY-4.0)
-  - adaptthemePresRIP.tex ... file, LaTeX beamer class configuration
-  - biblio.bib ... file, bibliography
-  - main.tex ... file, main LaTeX document, presentation source code
-  - oct2texdefs.tex ... file, conviniently import field data from GNU Octave data structures into LaTeX documents
+  - *adaptthemePresRIP.tex* ... file, LaTeX beamer class configuration
+  - *biblio.bib* ... file, bibliography
+  - *main.tex* ... file, main LaTeX document, presentation source code
+  - *oct2texdefs.tex* ... file, conviniently import field data from GNU Octave data structures into LaTeX documents
 - **acfrn/published** ... directory, published documents, archives (AGPLv3, CC BY-4.0)
 - **acfrn/octave** ... directory, GNU Octave script files and analysis results (AGPLv3)
-  - init.m ... function file, initialization script, load packages, add subdirectories to path environment variable
-  - test\_acfrn.m ... function file, main script, auto-correlation function tests
-  - wrapper\_acfrn\_pvar.m ... function file, wrapper script for the automated parameter variation
+  - *init.m* ... function file, initialization script, load packages, add subdirectories to path environment variable
+  - *test\_acfrn.m* ... function file, main script, auto-correlation function tests
+  - *wrapper\_acfrn\_pvar.m* ... function file, wrapper script for the automated parameter variation
 - **acfrn/octave/results/test\_acfrn** ... directory, analysis results (CC BY-4.0)
-  - noise\_Nsmp20480\_Nmc500.oct ... GNU Octave binary file, standard noise data matrix (to reproduce analysis results, see also function file *tool\_gen\_noise.m*)
-  - \*.oct ... GNU Octave binary files, analysis results
-  - \*.ofig ... GNU Octave binary files, figures
-  - \*.png ... portable network graphics, figures
-  - \*.tex ... TeX file, exported analysis results (see also TeX file *oct2texdefs.tex*)
+  - *noise\_Nsmp20480\_Nmc500.oct* ... GNU Octave binary file, standard noise data matrix (to reproduce analysis results, see also function file *tool\_gen\_noise.m*)
+  - *\*.oct* ... GNU Octave binary files, analysis results
+  - *\*.ofig* ... GNU Octave binary files, figures
+  - *\*.png* ... portable network graphics, figures
+  - *\*.tex* ... TeX file, exported analysis results (see also TeX file *oct2texdefs.tex*)
 - **acfrn/octave/struct** ... directory, data structure building tools (MIT license)
-  - README.txt ... file, additional information about the directory content
-  - struct\_objattrib.m ... function file, create attribute object (atomic attribute element, AAE)
-  - struct\_objdata.m ... function file, create data object (atomic data element, ADE)
-  - struct\_objref.m ... function file, create reference object (atomic reference element, ARE)
+  - *README.txt* ... file, additional information about the directory content
+  - *struct\_objattrib.m* ... function file, create attribute object (atomic attribute element, AAE)
+  - *struct\_objdata.m* ... function file, create data object (atomic data element, ADE)
+  - *struct\_objref.m* ... function file, create reference object (atomic reference element, ARE)
 - **acfrn/octave/tex** ... directory, data structure TeX file export tools (MIT license)
-  - README.txt ... file, additional information about the directory content
-  - tex\_def\_csvarray.m ... function file, serialize array variable to TeX code (comma-separated list, e.g. version numbers)
-  - tex\_def\_dotarray.m ... function file, serialize short array variable to TeX code (dot-separated list, e.g. structure path)
-  - tex\_def\_scalar.m ... function file, serialize scalar value to TeX code
-  - tex\_def\_tabarray.m ... function file, serialize array value to TeX code (tabulated)
-  - tex\_def\_tabmatrix.m ... function file, serialize matrix value to TeX code (tabulated)
-  - tex\_serialize.m ... function file, serialize single value of various data types
-  - tex\_settings.m ... function file, create data structure containing the TeX code serialization settings
-  - tex\_struct\_export.m ... function file, export data structure(s) to TeX code file
-  - tex\_struct.m ... function file, serialize data structure(s) to TeX code
-  - tex\_struct\_objattrib.m ... function file, serialize atomic attribute element to TeX code
-  - tex\_struct\_objdata.m ... function file, serialize atomic data element to TeX code
-  - tex\_struct\_objref.m ... function file, serialize atomic reference element to TeX code
+  - *README.txt* ... file, additional information about the directory content
+  - *tex\_def\_csvarray.m* ... function file, serialize array variable to TeX code (comma-separated list, e.g. version numbers)
+  - *tex\_def\_dotarray.m* ... function file, serialize short array variable to TeX code (dot-separated list, e.g. structure path)
+  - *tex\_def\_scalar.m* ... function file, serialize scalar value to TeX code
+  - *tex\_def\_tabarray.m* ... function file, serialize array value to TeX code (tabulated)
+  - *tex\_def\_tabmatrix.m* ... function file, serialize matrix value to TeX code (tabulated)
+  - *tex\_serialize.m* ... function file, serialize single value of various data types
+  - *tex\_settings.m* ... function file, create data structure containing the TeX code serialization settings
+  - *tex\_struct\_export.m* ... function file, export data structure(s) to TeX code file
+  - *tex\_struct.m* ... function file, serialize data structure(s) to TeX code
+  - *tex\_struct\_objattrib.m* ... function file, serialize atomic attribute element to TeX code
+  - *tex\_struct\_objdata.m* ... function file, serialize atomic data element to TeX code
+  - *tex\_struct\_objref.m* ... function file, serialize atomic reference element to TeX code
 - **acfrn/octave/tools** ... directory, tool scripts (AGPLv3)
-  - tool\_est\_acf\_period.m ... function file, auto-correlation function (ACF) signal period estimation for sinusoidal signals
-  - tool\_est\_acfrn.m ... function file, estimate auto-correlation function with reduced impact of noise
-  - tool\_gen\_noise.m ... function file, generate standard noise data for reproducible analysis results
-  - tool\_gen\_sinusoidal1.m ... function file, generate (damped) sinusoidal signals
-  - tool\_plot\_errorbar_extended.m ... function file, plot errorbars, extended support for errorbar symbols and symbol formatting
-  - tool\_plot\_labelgroups.m ... function file, plot groups of labels
-  - tool\_plot\_labelseries.m ... function file, plot series of labels
-  - tool\_plot\_perfassmat.m ... function file, plot performance assessment matrix (colored, boxed grid with box labels)
-  - tool\_plot\_vsep.m ... function file, plot vertical separator lines with labels
-  - tool\_scale\_noise2snr.m ... function file, scale noise data w.r.t. signal power and signal-to-noise ratio
-  - tool\_stats\_dmat.m ... function file, compute statistical values for a 2D data matrix
+  - *tool\_est\_acf\_period.m* ... function file, auto-correlation function (ACF) signal period estimation for sinusoidal signals
+  - *tool\_est\_acfrn.m* ... function file, estimate auto-correlation function with reduced impact of noise
+  - *tool\_gen\_noise.m* ... function file, generate standard noise data for reproducible analysis results
+  - *tool\_gen\_sinusoidal1.m* ... function file, generate (damped) sinusoidal signals
+  - *tool\_plot\_errorbar_extended.m* ... function file, plot errorbars, extended support for errorbar symbols and symbol formatting
+  - *tool\_plot\_labelgroups.m* ... function file, plot groups of labels
+  - *tool\_plot\_labelseries.m* ... function file, plot series of labels
+  - *tool\_plot\_perfassmat.m* ... function file, plot performance assessment matrix (colored, boxed grid with box labels)
+  - *tool\_plot\_vsep.m* ... function file, plot vertical separator lines with labels
+  - *tool\_scale\_noise2snr.m* ... function file, scale noise data w.r.t. signal power and signal-to-noise ratio
+  - *tool\_stats\_dmat.m* ... function file, compute statistical values for a 2D data matrix
 - **acfrn/octave/variations** ... directory, parameter variation tools (AGPLv3)
-  - var\_param5mc.m ... function file, vary up to 5 parameters with an additional Monte-Carlo test
+  - *var\_param5mc.m* ... function file, vary up to 5 parameters with an additional Monte-Carlo test
 
 
 ## Installation instructions
@@ -207,12 +206,12 @@ The *init* command initializes the program. The initialization must be run once 
 ```
 
 > [!NOTE]
-> To reproduce all analysis results shown in the presentation in **acfrn/latex/test\_acfrn**, run all commands from above.
+> To reproduce all analysis results shown in the presentation in **acfrn/latex/test\_acfrn**, run all above-mentioned commands.
 
 
 ## Help and Documentation
 
-All function files contain an adequate function description and instructions on how to use the functions. This documentation can be displayed in the GNU Octave command line interface by entering the following command:
+All function files contain an adequate function description and instructions on how to use the functions. The documentation can be displayed in the GNU Octave command line interface by entering the following command:
 
 ```
     octave: >> help function_file_name;   
@@ -221,7 +220,7 @@ All function files contain an adequate function description and instructions on 
 
 ## Related data sources
 
-Datasets whos content can be analyzed and plotted with this scripts are made available at the repository of Graz University of Technology under an open license (Creative Commons, CC BY 4.0). The data records enlisted below contain the raw data, the compiled datasets and a technical description of the record content.
+Datasets whos content can be analyzed and plotted with this scripts are made available at the repository of Graz University of Technology under an open license (Creative Commons Attribution 4.0 International, CC BY-4.0). The data records enlisted below contain the raw data, the compiled datasets and a technical description of the record content.
 
 
 ### Data records
@@ -268,8 +267,8 @@ The referenced datasets are compiled from raw data using a dataset compilation t
 
 ## Revision and release history
 
-### 2024-11-30, version 1.0
+### 2024-11-30, version 1.0.0
 
-- published/released version 1.0, by Jakob Harden   
+- published/released version 1.0.0, by Jakob Harden   
 - url: [Repository of Graz University of Technology](xxxxxxxx)   
 - doi: xxxxxxxxx   

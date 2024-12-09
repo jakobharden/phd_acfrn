@@ -56,134 +56,133 @@ GNU Octave is available via the package management system on many Linux distribu
 
 <p>GNU Octave script files (*.m) are written in the scientific programming language of GNU Octave 6.2.0. LaTeX files (*.tex) are written with compliance to TeXlive version 2020.20210202-3. Text files are generally encoded in UTF-8.</p>
 
-<p>```
-acfrn
-├── latex
-│   └── test<em>acfnr
-│       ├── adaptthemePresRIP.tex
-│       ├── biblio.bib
-│       ├── main.tex
-│       └── oct2texdefs.tex
-├── octave
-│   ├── results
-│   │   └── test</em>acfrn
-│   │       ├── noise<em>Nsmp20480</em>Nmc500.oct
-│   │       ├── *.oct
-│   │       ├── *.ofig
-│   │       ├── *.png
+<p><code>
+acfrn <br />
+├── latex <br />
+│   └── test_acfnr <br />
+│       ├── adaptthemePresRIP.tex <br />
+│       ├── biblio.bib <br />
+│       ├── main.tex <br />
+│       └── oct2texdefs.tex <br />
+├── octave <br />
+│   ├── results <br />
+│   │   └── test_acfrn <br />
+│   │       ├── noise_Nsmp20480_Nmc500.oct <br />
+│   │       ├── *.oct <br />
+│   │       ├── *.ofig <br />
+│   │       ├── *.png <br />
 │   │       └── *.tex <br />
-│   ├── struct
-│   │   ├── README.txt
-│   │   ├── struct<em>objattrib.m
-│   │   ├── struct</em>objdata.m
-│   │   └── struct<em>objref.m
-│   ├── tex
-│   │   ├── README.txt
-│   │   ├── tex</em>def<em>csvarray.m
-│   │   ├── tex</em>def<em>dotarray.m
-│   │   ├── tex</em>def<em>scalar.m
-│   │   ├── tex</em>def<em>tabarray.m
-│   │   ├── tex</em>def<em>tabmatrix.m
-│   │   ├── tex</em>serialize.m
-│   │   ├── tex<em>settings.m
-│   │   ├── tex</em>struct<em>export.m
-│   │   ├── tex</em>struct.m
-│   │   ├── tex<em>struct</em>objattrib.m
-│   │   ├── tex<em>struct</em>objdata.m
-│   │   └── tex<em>struct</em>objref.m
-│   ├── tools
-│   │   ├── tool<em>est</em>acf<em>period.m
-│   │   ├── tool</em>est<em>acfrn.m
-│   │   ├── tool</em>gen<em>noise.m
-│   │   ├── tool</em>gen<em>sinusoidal1.m
-│   │   ├── tool</em>plot<em>errorbar</em>extended.m
-│   │   ├── tool<em>plot</em>labelgroups.m
-│   │   ├── tool<em>plot</em>labelseries.m
-│   │   ├── tool<em>plot</em>perfassmat.m
-│   │   ├── tool<em>plot</em>vsep.m
-│   │   ├── tool<em>scale</em>noise2snr.m
-│   │   └── tool<em>stats</em>dmat.m
-│   ├── variations
-│   │   └── var<em>param5mc.m
-│   ├── init.m
-│   ├── test</em>acfrn.m
-│   └── wrapper<em>acfrn</em>pvar.m
-├── published
-├── LICENSE
-├── README.html
-└── README.md</p>
-
-<p>```</p>
+│   ├── struct <br />
+│   │   ├── README.txt <br />
+│   │   ├── struct_objattrib.m <br />
+│   │   ├── struct_objdata.m <br />
+│   │   └── struct_objref.m <br />
+│   ├── tex <br />
+│   │   ├── README.txt <br />
+│   │   ├── tex_def_csvarray.m <br />
+│   │   ├── tex_def_dotarray.m <br />
+│   │   ├── tex_def_scalar.m <br />
+│   │   ├── tex_def_tabarray.m <br />
+│   │   ├── tex_def_tabmatrix.m <br />
+│   │   ├── tex_serialize.m <br />
+│   │   ├── tex_settings.m <br />
+│   │   ├── tex_struct_export.m <br />
+│   │   ├── tex_struct.m <br />
+│   │   ├── tex_struct_objattrib.m <br />
+│   │   ├── tex_struct_objdata.m <br />
+│   │   └── tex_struct_objref.m <br />
+│   ├── tools <br />
+│   │   ├── tool_est_acf_period.m <br />
+│   │   ├── tool_est_acfrn.m <br />
+│   │   ├── tool_gen_noise.m <br />
+│   │   ├── tool_gen_sinusoidal1.m <br />
+│   │   ├── tool_plot_errorbar_extended.m <br />
+│   │   ├── tool_plot_labelgroups.m <br />
+│   │   ├── tool_plot_labelseries.m <br />
+│   │   ├── tool_plot_perfassmat.m <br />
+│   │   ├── tool_plot_vsep.m <br />
+│   │   ├── tool_scale_noise2snr.m <br />
+│   │   └── tool_stats_dmat.m <br />
+│   ├── variations <br />
+│   │   └── var_param5mc.m <br />
+│   ├── init.m <br />
+│   ├── test_acfrn.m <br />
+│   └── wrapper_acfrn_pvar.m <br />
+├── published <br />
+├── LICENSE <br />
+├── README.html <br />
+└── README.md
+</code></p>
 
 <ul>
 <li><strong>acfrn</strong> ... main program directory
 <ul>
-<li>LICENSE ... AGPLv3 licence information file</li>
-<li>README.md ... this file, information about the program</li>
-<li>README.html ... html version of this file</li>
+<li><em>LICENSE</em> ... AGPLv3 licence information file</li>
+<li><em>README.md</em> ... this file, information about the program</li>
+<li><em>README.html</em> ... html version of this file</li>
 </ul></li>
 <li><strong>acfrn/latex/test_acfrn</strong> ... directory, LaTeX documents, presentation slides (CC BY-4.0)
 <ul>
-<li>adaptthemePresRIP.tex ... file, LaTeX beamer class configuration</li>
-<li>biblio.bib ... file, bibliography</li>
-<li>main.tex ... file, main LaTeX document, presentation source code</li>
-<li>oct2texdefs.tex ... file, conviniently import field data from GNU Octave data structures into LaTeX documents</li>
+<li><em>adaptthemePresRIP.tex</em> ... file, LaTeX beamer class configuration</li>
+<li><em>biblio.bib</em> ... file, bibliography</li>
+<li><em>main.tex</em> ... file, main LaTeX document, presentation source code</li>
+<li><em>oct2texdefs.tex</em> ... file, conviniently import field data from GNU Octave data structures into LaTeX documents</li>
 </ul></li>
 <li><strong>acfrn/published</strong> ... directory, published documents, archives (AGPLv3, CC BY-4.0)</li>
 <li><strong>acfrn/octave</strong> ... directory, GNU Octave script files and analysis results (AGPLv3)
 <ul>
-<li>init.m ... function file, initialization script, load packages, add subdirectories to path environment variable</li>
-<li>test_acfrn.m ... function file, main script, auto-correlation function tests</li>
-<li>wrapper_acfrn_pvar.m ... function file, wrapper script for the automated parameter variation</li>
+<li><em>init.m</em> ... function file, initialization script, load packages, add subdirectories to path environment variable</li>
+<li><em>test_acfrn.m</em> ... function file, main script, auto-correlation function tests</li>
+<li><em>wrapper_acfrn_pvar.m</em> ... function file, wrapper script for the automated parameter variation</li>
 </ul></li>
 <li><strong>acfrn/octave/results/test_acfrn</strong> ... directory, analysis results (CC BY-4.0)
 <ul>
-<li>noise_Nsmp20480_Nmc500.oct ... GNU Octave binary file, standard noise data matrix (to reproduce analysis results, see also function file <em>tool_gen_noise.m</em>)</li>
-<li>*.oct ... GNU Octave binary files, analysis results</li>
-<li>*.ofig ... GNU Octave binary files, figures</li>
-<li>*.png ... portable network graphics, figures</li>
-<li>*.tex ... TeX file, exported analysis results (see also TeX file <em>oct2texdefs.tex</em>)</li>
+<li><em>noise_Nsmp20480_Nmc500.oct</em> ... GNU Octave binary file, standard noise data matrix (to reproduce analysis results, see also function file <em>tool_gen_noise.m</em>)</li>
+<li><em>*.oct</em> ... GNU Octave binary files, analysis results</li>
+<li><em>*.ofig</em> ... GNU Octave binary files, figures</li>
+<li><em>*.png</em> ... portable network graphics, figures</li>
+<li><em>*.tex</em> ... TeX file, exported analysis results (see also TeX file <em>oct2texdefs.tex</em>)</li>
 </ul></li>
 <li><strong>acfrn/octave/struct</strong> ... directory, data structure building tools (MIT license)
 <ul>
-<li>README.txt ... file, additional information about the directory content</li>
-<li>struct_objattrib.m ... function file, create attribute object (atomic attribute element, AAE)</li>
-<li>struct_objdata.m ... function file, create data object (atomic data element, ADE)</li>
-<li>struct_objref.m ... function file, create reference object (atomic reference element, ARE)</li>
+<li><em>README.txt</em> ... file, additional information about the directory content</li>
+<li><em>struct_objattrib.m</em> ... function file, create attribute object (atomic attribute element, AAE)</li>
+<li><em>struct_objdata.m</em> ... function file, create data object (atomic data element, ADE)</li>
+<li><em>struct_objref.m</em> ... function file, create reference object (atomic reference element, ARE)</li>
 </ul></li>
 <li><strong>acfrn/octave/tex</strong> ... directory, data structure TeX file export tools (MIT license)
 <ul>
-<li>README.txt ... file, additional information about the directory content</li>
-<li>tex_def_csvarray.m ... function file, serialize array variable to TeX code (comma-separated list, e.g. version numbers)</li>
-<li>tex_def_dotarray.m ... function file, serialize short array variable to TeX code (dot-separated list, e.g. structure path)</li>
-<li>tex_def_scalar.m ... function file, serialize scalar value to TeX code</li>
-<li>tex_def_tabarray.m ... function file, serialize array value to TeX code (tabulated)</li>
-<li>tex_def_tabmatrix.m ... function file, serialize matrix value to TeX code (tabulated)</li>
-<li>tex_serialize.m ... function file, serialize single value of various data types</li>
-<li>tex_settings.m ... function file, create data structure containing the TeX code serialization settings</li>
-<li>tex_struct_export.m ... function file, export data structure(s) to TeX code file</li>
-<li>tex_struct.m ... function file, serialize data structure(s) to TeX code</li>
-<li>tex_struct_objattrib.m ... function file, serialize atomic attribute element to TeX code</li>
-<li>tex_struct_objdata.m ... function file, serialize atomic data element to TeX code</li>
-<li>tex_struct_objref.m ... function file, serialize atomic reference element to TeX code</li>
+<li><em>README.txt</em> ... file, additional information about the directory content</li>
+<li><em>tex_def_csvarray.m</em> ... function file, serialize array variable to TeX code (comma-separated list, e.g. version numbers)</li>
+<li><em>tex_def_dotarray.m</em> ... function file, serialize short array variable to TeX code (dot-separated list, e.g. structure path)</li>
+<li><em>tex_def_scalar.m</em> ... function file, serialize scalar value to TeX code</li>
+<li><em>tex_def_tabarray.m</em> ... function file, serialize array value to TeX code (tabulated)</li>
+<li><em>tex_def_tabmatrix.m</em> ... function file, serialize matrix value to TeX code (tabulated)</li>
+<li><em>tex_serialize.m</em> ... function file, serialize single value of various data types</li>
+<li><em>tex_settings.m</em> ... function file, create data structure containing the TeX code serialization settings</li>
+<li><em>tex_struct_export.m</em> ... function file, export data structure(s) to TeX code file</li>
+<li><em>tex_struct.m</em> ... function file, serialize data structure(s) to TeX code</li>
+<li><em>tex_struct_objattrib.m</em> ... function file, serialize atomic attribute element to TeX code</li>
+<li><em>tex_struct_objdata.m</em> ... function file, serialize atomic data element to TeX code</li>
+<li><em>tex_struct_objref.m</em> ... function file, serialize atomic reference element to TeX code</li>
 </ul></li>
 <li><strong>acfrn/octave/tools</strong> ... directory, tool scripts (AGPLv3)
 <ul>
-<li>tool_est_acf_period.m ... function file, auto-correlation function (ACF) signal period estimation for sinusoidal signals</li>
-<li>tool_est_acfrn.m ... function file, estimate auto-correlation function with reduced impact of noise</li>
-<li>tool_gen_noise.m ... function file, generate standard noise data for reproducible analysis results</li>
-<li>tool_gen_sinusoidal1.m ... function file, generate (damped) sinusoidal signals</li>
-<li>tool_plot_errorbar_extended.m ... function file, plot errorbars, extended support for errorbar symbols and symbol formatting</li>
-<li>tool_plot_labelgroups.m ... function file, plot groups of labels</li>
-<li>tool_plot_labelseries.m ... function file, plot series of labels</li>
-<li>tool_plot_perfassmat.m ... function file, plot performance assessment matrix (colored, boxed grid with box labels)</li>
-<li>tool_plot_vsep.m ... function file, plot vertical separator lines with labels</li>
-<li>tool_scale_noise2snr.m ... function file, scale noise data w.r.t. signal power and signal-to-noise ratio</li>
-<li>tool_stats_dmat.m ... function file, compute statistical values for a 2D data matrix</li>
+<li><em>tool_est_acf_period.m</em> ... function file, auto-correlation function (ACF) signal period estimation for sinusoidal signals</li>
+<li><em>tool_est_acfrn.m</em> ... function file, estimate auto-correlation function with reduced impact of noise</li>
+<li><em>tool_gen_noise.m</em> ... function file, generate standard noise data for reproducible analysis results</li>
+<li><em>tool_gen_sinusoidal1.m</em> ... function file, generate (damped) sinusoidal signals</li>
+<li><em>tool_plot_errorbar_extended.m</em> ... function file, plot errorbars, extended support for errorbar symbols and symbol formatting</li>
+<li><em>tool_plot_labelgroups.m</em> ... function file, plot groups of labels</li>
+<li><em>tool_plot_labelseries.m</em> ... function file, plot series of labels</li>
+<li><em>tool_plot_perfassmat.m</em> ... function file, plot performance assessment matrix (colored, boxed grid with box labels)</li>
+<li><em>tool_plot_vsep.m</em> ... function file, plot vertical separator lines with labels</li>
+<li><em>tool_scale_noise2snr.m</em> ... function file, scale noise data w.r.t. signal power and signal-to-noise ratio</li>
+<li><em>tool_stats_dmat.m</em> ... function file, compute statistical values for a 2D data matrix</li>
 </ul></li>
 <li><strong>acfrn/octave/variations</strong> ... directory, parameter variation tools (AGPLv3)
 <ul>
-<li>var_param5mc.m ... function file, vary up to 5 parameters with an additional Monte-Carlo test</li>
+<li><em>var_param5mc.m</em> ... function file, vary up to 5 parameters with an additional Monte-Carlo test</li>
 </ul></li>
 </ul>
 
@@ -217,8 +216,9 @@ acfrn
 
 <p><code>
     octave: &gt;&gt; test_acfrn('pvar'); # compute parameter variation, method comparison <br />
-    octave: &gt;&gt; test_acfrn('stats1'); # plot parameter variation stats, relative error vs. signal length, method comparison <br />
+    octave: &gt;&gt; test_acfrn('stats1'); # plot parameter variation stats, power estimation error, method comparison <br />
     octave: &gt;&gt; test_acfrn('stats2'); # plot parameter variation stats, error distribution, method comparison <br />
+    octave: &gt;&gt; test_acfrn('stats3'); # plot parameter variation stats, performance assessment, method comparison <br />
     octave: &gt;&gt; test_acfrn('sig'); # plot synthetic test signals <br />
     octave: &gt;&gt; test_acfrn('acf'); # compute/plot ACF examples, method comparison <br />
     octave: &gt;&gt; test_acfrn('nat'); # analyse/plot selected natural signals
@@ -226,12 +226,12 @@ acfrn
 
 <blockquote>
   <p>[!NOTE]
-To reproduce all analysis results shown in the presentation in <strong>acfrn/latex/test_acfrn</strong>, run all commands from above.</p>
+To reproduce all analysis results shown in the presentation in <strong>acfrn/latex/test_acfrn</strong>, run all above-mentioned commands.</p>
 </blockquote>
 
 <h2>Help and Documentation</h2>
 
-<p>All function files contain an adequate function description and instructions on how to use the functions. This documentation can be displayed in the GNU Octave command line interface by entering the following command:</p>
+<p>All function files contain an adequate function description and instructions on how to use the functions. The documentation can be displayed in the GNU Octave command line interface by entering the following command:</p>
 
 <p><code>
     octave: &gt;&gt; help function_file_name;
@@ -239,7 +239,7 @@ To reproduce all analysis results shown in the presentation in <strong>acfrn/lat
 
 <h2>Related data sources</h2>
 
-<p>Datasets whos content can be analyzed and plotted with this scripts are made available at the repository of Graz University of Technology under an open license (Creative Commons, CC BY 4.0). The data records enlisted below contain the raw data, the compiled datasets and a technical description of the record content.</p>
+<p>Datasets whos content can be analyzed and plotted with this scripts are made available at the repository of Graz University of Technology under an open license (Creative Commons Attribution 4.0 International, CC BY-4.0). The data records enlisted below contain the raw data, the compiled datasets and a technical description of the record content.</p>
 
 <h3>Data records</h3>
 
@@ -295,10 +295,10 @@ To reproduce all analysis results shown in the presentation in <strong>acfrn/lat
 
 <h2>Revision and release history</h2>
 
-<h3>2024-11-30, version 1.0</h3>
+<h3>2024-11-30, version 1.0.0</h3>
 
 <ul>
-<li>published/released version 1.0, by Jakob Harden   </li>
+<li>published/released version 1.0.0, by Jakob Harden   </li>
 <li>url: <a href="xxxxxxxx">Repository of Graz University of Technology</a>   </li>
 <li>doi: xxxxxxxxx   </li>
 </ul>
