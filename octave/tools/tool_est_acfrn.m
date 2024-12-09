@@ -107,21 +107,22 @@ function [r_acf, r_lag, r_nrm, r_mli, r_m0, r_dx] = tool_est_acfrn(p_xx, p_acm, 
   ridx = transpose([r_m0 - dx6 : r_m0 + dx6]); # regression index
   
   ## step 4: fit polynome of 2nd order to ACF inside regression interval
+  ## least-squares approach
   [p, s, mu] = polyfit(ridx, r_acf(ridx)(:), 2);
   
   ## step 5: select noise reduction mode, replace ACF values
   switch (p_nrm)
     case 'm0'
       r_mli = r_m0; # modified lag index
-      r_acf(r_mli) = s.yf(dx6 + 1); # replace ACF sample values
+      r_acf(r_mli) = s.yf(dx6 + 1); # replace ACF samples
       r_nrm = 1; # update noise reduction mode
     case 'm01'
       r_mli = [r_m0 - 1; r_m0; r_m0 + 1]; # modified lag index
-      r_acf(r_mli) = s.yf([dx6, dx6 + 1, dx6 + 2]); # replace ACF sample values
+      r_acf(r_mli) = s.yf([dx6, dx6 + 1, dx6 + 2]); # replace ACF samples
       r_nrm = 2; # update noise reduction mode
     case 'mx2'
       r_mli = ridx; # modified lag index
-      r_acf(r_mli) = s.yf; # replace ACF sample values
+      r_acf(r_mli) = s.yf; # replace ACF samples
       r_nrm = 3; # update noise reduction mode
   otherwise
       help tool_est_acfrn;

@@ -7,8 +7,6 @@
 ## r_ap  ... return: ACF period estimate, <dbl>
 ## r_m0  ... return: zero lag index (m = 0), <uint>
 ##
-## see also: 
-##
 #######################################################################################################################
 ## LICENSE
 ##
@@ -45,8 +43,8 @@ function [r_ap, r_m0] = tool_est_acf_period(p_acf, p_lag)
   ## determine zero-lag index
   r_m0 = find(p_lag >= 0, 1, 'first');
   
-  ## detect first x axis crossing next to the zero lag
-  m1 = find(p_acf(1 : r_m0) <= 0, 1, 'last');
+  ## detect first x axis crossing next to the zero lag, negative half-space of lag
+  m1 = find(p_acf(1 : r_m0) < 0, 1, 'last');
   if isempty(m1)
     printf('tool_est_acf_period: Cannot find x axis crossing next to zero lag.\n');
     return;
