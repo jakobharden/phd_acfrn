@@ -27,7 +27,7 @@
 \usepackage{multicol}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usetikzlibrary{calc,fpu}
+\usetikzlibrary{calc,fpu,plotmarks}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepgflibrary{fpu}
@@ -155,6 +155,60 @@
 		\begin{equation}
 			P(\tau) = \frac{1}{2}-\frac{{{\tau}^{2}}}{4}
 		\end{equation}
+	\end{frame}
+	%
+	\begin{frame}
+		\frametitle{The idea and the theory behind ...}
+		\begin{columns}
+			\begin{RIPcolleft}
+				\vspace*{1em}
+				\begin{tikzpicture}
+					\begin{axis}[%
+						xlabel={Lag $\tau$},%
+						ylabel={Magnitude $R_{ss}$},%
+						xlabel style = {anchor=north,inner xsep=0pt},%
+						ylabel style = {anchor=south,inner ysep=0pt},%
+						title style = {yshift=0.5em},%
+						legend cell align={left},%
+						legend style = {draw=white},%
+						width=10cm,%
+						height=6cm,%
+						tick align = {outside},%
+						xtick pos=left,%
+						ytick pos=left,%
+						domain=-2.5:2.5]
+						%
+						\coordinate (X10) at (axis cs:-pi/2,0);
+						\coordinate (X20) at (axis cs:pi/2,0);
+						\coordinate (X1) at (axis cs:-pi/2,-0.1);
+						\coordinate (X2) at (axis cs:pi/2,-0.1);
+						\coordinate (P1) at (axis cs:-pi/6,0.35);
+						\coordinate (P2) at (axis cs:pi/6,0.35);
+						\addplot[forget plot,gray,thin,thin,->,>=stealth] coordinates {(-2.5,0) (2.5,0)};
+						\addplot[forget plot,gray,thin,->,>=stealth] coordinates {(0,-0.5) (0,0.6)};
+						\addplot[forget plot,blue,thin,dashed,domain={-pi/2.5:pi/2.5}] {0.5 - x*x*0.25};
+						\addplot[red,thick] {0.5 * cos(deg(x))};
+						\addplot[blue,ultra thick,domain={-pi/6:pi/6}] {0.5 - x*x*0.25};
+						\node at (X10) {\pgfuseplotmark{*}};
+						\node at (X20) {\pgfuseplotmark{*}};
+						\draw[<->,>=stealth] (X1) -- (X2) node[midway,below right] {$d$};
+						\draw[<->,>=stealth] (P1) -- (P2)%
+						node[pos=0.5,below right] {$I_{reg}$};
+						\legend{$R_{ss}$, $P$}
+					\end{axis}
+				\end{tikzpicture}
+			\end{RIPcolleft}
+			\begin{RIPcolright}
+				\textbf{Auto-correlation function of a sine}
+				\begin{itemize}
+					\item $R_{ss}(\tau) = \frac{1}{2} \cos(\tau)$
+					\item $P(\tau) = \frac{1}{2} - \frac{1}{4} \tau^2$
+					\item Distance $d$ between x axis crossings
+					\item Symmetric interval $I_{reg}$ with length $L_{reg} = \frac{d}{3}$
+					\item $P(\tau)$ approximates $R_{ss}(\tau)$ in a close vicinity of $\tau = 0$
+				\end{itemize}
+			\end{RIPcolright}
+		\end{columns}
 	\end{frame}
 	%
 	\begin{frame}
