@@ -3,3 +3,6 @@ octave/results/test_acfrn/noise_Nsmp20480_Nmc500.oct filter=lfs diff=lfs merge=l
 *.oct filter=lfs diff=lfs merge=lfs -text
 *.ofig filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+published/presentation-v1.0.0.pdf filter=lfs diff=lfs merge=lfs -text
+published/presentation-v1.0.0_signed.pdf filter=lfs diff=lfs merge=lfs -text
