@@ -2,10 +2,10 @@
 
 ## Abstract
 
-The autocorrelation function (ACF) plays an important role in signal analysis. Numerous applications, such as the Wiener FIR filter design or signal power estimation, are based on this function. In these two applications, the influence of noise in the ACF is reduced by subtracting the noise power from the zero-lag magnitude of the ACF. Alas, this requires additional signal data that only contains i.i.d. noise.
-However, there are situations in which signal areas that only contain noise are difficult to identify or only a small amount of data is available. In such cases, considerable losses in accuracy may have to be accepted when estimating the signal power.
-The method I am about to introduce promises to significantly reduce the influence of signal noise in ACF estimation without the need for additional noise data. The technique involves replacing the ACF magnitudes in the area of the zero-lag with a regression polynomial. In it's initial design, the method is applicable to damped, sinusoidal signals.
-The numerical study presented here yields promising results. It demonstrates that the method can provide reliable signal power estimates for common applications, making it a practical and valuable tool.
+In traditional signal analysis, signal power and signal-to-noise ratio are estimated using the signal's stochastic properties. Those are related to a signal's auto-correlation function (ACF). Assuming that signal and noise are uncorrelated wide-sense stationary stochastic processes, the signal power can be obtained by subtracting the noise power from the signal's power in noise. This demands auxiliary data exclusively consisting of noise.
+However, there are situations where signal areas that only contain noise are difficult to identify or only little data is available. In such cases, considerable losses in accuracy may have to be accepted when estimating the signal power.
+The method introduced here promises to significantly reduce the influence of noise in ACF estimation without the need for auxiliary noise data. The technique involves replacing the ACF magnitudes around the Center-lag area with a regression polynomial. In its initial design, the method applies to damped, sinusoidal signals.
+The numerical study presented below yields promising results. It demonstrates that the method can provide reliable signal power estimates for typical applications, making it a practical and valuable tool.
 
 > [!NOTE]
 > The entire content of this repository was conceived, implemented and tested by Jakob Harden using the scientific numerical programming language of GNU Octave 6.2.0 and TeXlive/TeXStudio.
@@ -270,5 +270,8 @@ The referenced datasets are compiled from raw data using a dataset compilation t
 ### 2024-11-30, version 1.0.0
 
 - published/released version 1.0.0, by Jakob Harden   
-- url: [Repository of Graz University of Technology](xxxxxxxx)   
-- doi: xxxxxxxxx   
+- url: [Repository of Graz University of Technology](https://repository.tugraz.at/)   
+- Presentation, doi: [10.3217/bttj1-04b72](https://doi.org/10.3217/bttj1-04b72)   
+- GNU Octave code, doi: [10.3217/rvnf8-z5r12](https://doi.org/10.3217/rvnf8-z5r12)   
+- LaTeX code, doi: [10.3217/zkj4t-30097](https://doi.org/10.3217/zkj4t-30097)   
+
