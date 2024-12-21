@@ -1,4 +1,7 @@
-# Auto-correlation function estimation with reduced impact of noise
+# Auto-correlation function estimation considering noise reduction
+
+**A numerical study on (damped) sinusoidal signals in noise**
+
 
 ## Abstract
 
